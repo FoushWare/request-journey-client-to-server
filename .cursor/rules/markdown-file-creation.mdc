@@ -1,0 +1,79 @@
+---
+description: "Guidelines for creating markdown files - create minimal version first, then fill in content"
+alwaysApply: true
+---
+
+# Markdown File Creation Workflow
+
+When creating new markdown files (especially large documentation or task files), **ALWAYS** follow this two-phase approach to prevent data loss from network errors or timeouts:
+
+## Phase 1: Create Minimal File First
+
+**Before writing comprehensive content, create the file with minimal content:**
+
+1. Create the file with just a header and basic metadata
+2. Save/persist the file to disk immediately
+3. Verify the file exists before proceeding
+
+**Example minimal structure:**
+```markdown
+# Task: [Category] - [Task Name]
+
+**Related Issue:** #XX  
+**Status:** In Progress
+```
+
+Or for documentation files:
+```markdown
+# [Document Title]
+
+**Status:** In Progress
+```
+
+## Phase 2: Fill in Content
+
+**Only after the file is created and persisted:**
+
+1. Read the existing file to confirm it's on disk
+2. Then fill in the comprehensive content section by section
+3. Update the file incrementally if needed
+
+## Why This Matters
+
+- **Prevents Data Loss**: If network errors occur during large file writes, the file structure is already saved
+- **Better Reliability**: Files are persisted incrementally rather than all at once
+- **Easier Recovery**: If something fails, you can resume from the saved structure
+
+## When to Apply
+
+- Creating new markdown files (`.md` files)
+- Writing large documentation files
+- Creating task files with extensive content
+- Writing comprehensive guides or tutorials
+- Any markdown file expected to be > 100 lines
+
+## Best Practices
+
+1. **Always create first, then fill**: Never write large content without first creating the file structure
+2. **Verify persistence**: After creating minimal version, verify file exists before adding content
+3. **Incremental updates**: For very large files, consider filling in sections incrementally
+4. **Use search_replace**: When filling content, use search_replace to update existing minimal content rather than overwriting
+
+## Example Workflow
+
+```bash
+# Step 1: Create minimal file
+write file_path.md "Minimal header content"
+
+# Step 2: Verify it exists
+read_file file_path.md
+
+# Step 3: Fill in comprehensive content
+search_replace file_path.md "Minimal content" "Full comprehensive content"
+```
+
+## Exception
+
+- Small markdown files (< 50 lines) can be created with full content in one step
+- Simple README files can be written directly
+- Quick notes or small documentation can skip this workflow
