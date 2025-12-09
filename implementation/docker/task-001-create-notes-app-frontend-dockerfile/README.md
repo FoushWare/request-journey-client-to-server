@@ -1,23 +1,36 @@
-# Implementation: Frontend Dockerfile
+# Task 001: Create Notes App Frontend Dockerfile
 
-This directory contains the implementation code for creating the Notes App frontend Dockerfile.
+## Structure
 
-## Files
-
-- `Dockerfile` - Multi-stage Dockerfile for Next.js frontend
-- `.dockerignore` - Files to exclude from build context
-- `next.config.js.example` - Example Next.js configuration
+This directory contains:
+- `starter/` - Base Notes App codebase (no Docker)
+- `final-solution/` - Complete solution with frontend Dockerfile
 
 ## Usage
 
-1. Copy `Dockerfile` to your `frontend/` directory
-2. Copy `.dockerignore` to your `frontend/` directory
-3. Build the image: `docker build -t notes-app-frontend:latest ./frontend`
-4. Run the container: `docker run -p 3000:3000 notes-app-frontend:latest`
+1. **Read the task**: Review `tasks/docker/task-001-create-notes-app-frontend-dockerfile.md`
+2. **Start with starter/**: Copy `starter/` to your working directory
+3. **Implement the task**: Create the frontend Dockerfile following the task instructions
+4. **Compare with final-solution/**: After completing, review `final-solution/` to see the complete implementation
 
-## Notes
+## Starter Contents
 
-- Uses Node.js 18 Alpine for smaller image size
-- Multi-stage build for optimization
-- Production-ready configuration
+The `starter/` directory contains:
+- Frontend (Next.js) application
+- Backend (Express) application  
+- Database schema
+- **No Dockerfile** - you need to create it!
 
+## Final Solution Contents
+
+The `final-solution/` directory contains:
+- Complete Notes App with frontend Dockerfile
+- `.dockerignore` file
+- Multi-stage Dockerfile optimized for production
+- All necessary configuration
+
+## Next Task
+
+After completing this task, proceed to:
+- **Task 002**: Create Notes App Backend Dockerfile
+- The starter for task-002 will be the final-solution of this task
