@@ -28,6 +28,31 @@ This guide is for mentors helping someone learn DevOps through the Notes App pro
 - Tasks reference related GitHub issues
 - Tasks build on each other with clear prerequisites
 
+### Implementation Structure
+
+Each task has an implementation directory with:
+- **starter/**: Starting codebase for the task
+- **final-solution/**: Complete solution for reference
+
+**Dependency Chain:**
+- Task 001 starter = Base Notes App (no Docker, no K8s, etc.)
+- Task 001 final-solution = Complete solution for task 001
+- Task 002 starter = Task 001 final-solution (if task 002 depends on task 001)
+- Task 002 final-solution = Complete solution for task 002
+- And so on...
+
+**How Mentees Use It:**
+1. Read the task file in `tasks/{category}/task-XXX.md`
+2. Copy `implementation/{category}/task-XXX/starter/` to working directory
+3. Implement the task following instructions
+4. Compare with `final-solution/` after completing (or if stuck)
+
+**How Mentors Set It Up:**
+1. Identify task dependencies from prerequisites
+2. Copy final-solution of prerequisite task(s) to new task's starter/
+3. Create complete solution in final-solution/
+4. Update README.md explaining what's in starter vs final-solution
+
 ### Task Structure
 Each task includes:
 1. **Theory Section**: Explains concepts before implementation
@@ -38,13 +63,45 @@ Each task includes:
 6. **Best Practices**: Security, optimization tips
 7. **OpenShift Notes**: OpenShift-specific instructions (where applicable)
 
-### Progress Tracking
+### Capsule Projects
+
+Capsule projects are **independent, real-world projects** where mentees research and implement solutions on their own. Unlike step-by-step tasks, these projects:
+
+- Provide requirements, not detailed instructions
+- Require independent research and learning
+- Challenge mentees to make architectural decisions
+- Simulate real-world scenarios
+
+**Available Projects:**
+- E-commerce App
+- Blog Platform
+- Todo/Project Management
+- Real-time Chat
+- API Gateway
+
+**Structure:**
+- `starter/`: Initial codebase with basic structure
+- `final-solution/`: Complete implemented solution
+- `hints/`: Progressive hints if mentee gets stuck
+- `README.md`: Project requirements and learning objectives
+- `solution-walkthrough.md`: Architecture and implementation explanation
+
+**When to Use:**
+- After completing several task categories
+- To practice independent problem-solving
+- To build a portfolio
+- To prepare for real-world scenarios
+
+See `capsule-projects/README.md` for detailed information.
+
+## Progress Tracking
 
 #### Recommended Tracking Method
 1. **Task Checklist**: Mentee checks off completed tasks
 2. **Learning Journal**: Mentee documents what they learned
 3. **Code Repository**: Track code changes in Git
 4. **Weekly Check-ins**: Review progress, discuss challenges
+5. **Implementation Review**: Compare mentee's solution with final-solution
 
 #### Progress Indicators
 - **Phase Completion**: Complete all tasks in a phase before moving on
