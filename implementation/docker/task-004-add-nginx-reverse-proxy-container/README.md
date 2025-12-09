@@ -1,22 +1,30 @@
-# Implementation: NGINX Reverse Proxy
+# Task 004: Add NGINX Reverse Proxy Container
 
-This directory contains the NGINX configuration for the Notes App reverse proxy.
+## Structure
 
-## Files
-
-- `nginx.conf` - NGINX configuration file
-- `docker-compose.nginx.yml` - Example docker-compose addition
+This directory contains:
+- `starter/` - Notes App with docker-compose.yml (from task-003 final-solution)
+- `final-solution/` - Complete solution with NGINX reverse proxy added
 
 ## Usage
 
-1. Create `nginx/` directory in project root
-2. Copy `nginx.conf` to `nginx/nginx.conf`
-3. Add NGINX service to `docker-compose.yml` (see task documentation)
-4. Start services: `docker-compose up -d`
+1. **Read the task**: Review `tasks/docker/task-004-add-nginx-reverse-proxy-container.md`
+2. **Start with starter/**: Copy `starter/` to your working directory
+3. **Implement the task**: Add NGINX container and configure reverse proxy
+4. **Compare with final-solution/**: After completing, review `final-solution/` to see the complete implementation
 
-## Configuration
+## Starter Contents
 
-- Frontend accessible at `http://localhost/`
-- Backend API at `http://localhost/api/*`
-- Health check at `http://localhost/health`
+The `starter/` directory contains:
+- Complete docker-compose.yml from task-003
+- Frontend, backend, and database services
+- **No NGINX** - you need to add it!
+
+## Final Solution Contents
+
+The `final-solution/` directory contains:
+- Complete Notes App with NGINX reverse proxy
+- NGINX configuration file
+- Updated docker-compose.yml with NGINX service
+- All services properly configured
 
