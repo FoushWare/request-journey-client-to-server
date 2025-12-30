@@ -440,3 +440,8 @@ docs: Update learning path with Terraform and Vault
 - All tasks maintain Notes App context
 - OpenShift support maintained where applicable
 
+
+
+
+
+

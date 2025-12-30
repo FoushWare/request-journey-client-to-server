@@ -1,0 +1,31 @@
+# Example SonarQube Project Configuration
+# Copy this file and customize for your project
+
+# Project identification
+sonar.projectKey=your-project-key
+sonar.projectName=Your Project Name
+
+# Source code location
+sonar.sources=src
+sonar.sourceEncoding=UTF-8
+
+# Exclusions (adjust for your project)
+sonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/coverage/**
+
+# Test files (if applicable)
+sonar.tests=__tests__,tests
+sonar.test.inclusions=**/*.test.js,**/*.spec.js
+
+# Coverage reports (if available)
+sonar.javascript.lcov.reportPaths=coverage/lcov.info
+
+# Language
+sonar.language=js
+
+# For SonarCloud
+sonar.organization=your-organization-key
+sonar.host.url=https://sonarcloud.io
+
+# For self-hosted
+# sonar.host.url=http://localhost:9000
+

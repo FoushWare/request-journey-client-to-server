@@ -28,3 +28,8 @@ The `final-solution/` directory contains:
 - Updated docker-compose.yml with NGINX service
 - All services properly configured
 
+
+
+
+
+

@@ -1,0 +1,69 @@
+// Example Jenkinsfile with SonarQube Integration
+// Add these stages to your existing Jenkinsfile
+
+pipeline {
+    agent any
+    
+    environment {
+        NODE_VERSION = '18'
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        
+        stage('Run Tests') {
+            steps {
+                sh 'npm test'
+            }
+            post {
+                always {
+                    junit 'test-results.xml'
+                }
+            }
+        }
+        
+        // SonarQube Analysis Stage
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'SonarQube Scanner'
+                    withSonarQubeEnv('SonarQube') {
+                        sh """
+                            ${scannerHome}/bin/sonar-scanner \
+                                -Dsonar.projectKey=your-project-key \
+                                -Dsonar.sources=. \
+                                -Dsonar.exclusions=**/node_modules/**,**/dist/** \
+                                -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+                        """
+                    }
+                }
+            }
+        }
+        
+        // Quality Gate Check
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+    }
+}
+

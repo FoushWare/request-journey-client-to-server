@@ -93,34 +93,44 @@ The Notes App is a simple but complete application:
 ---
 
 ### Phase 3: CI/CD Automation (Issues #51-60)
-**Estimated Time**: 2-3 weeks  
+**Estimated Time**: 3-4 weeks  
 **Prerequisites**: Phase 1 complete, Git knowledge
 
 **Learning Objectives**:
 - Set up Jenkins and GitHub Actions
 - Create automated build and test pipelines
+- Integrate code quality checks (ESLint, Prettier, security scanning)
+- Set up SonarQube for static code analysis
 - Integrate Docker image building and pushing
 - Automate deployment to Kubernetes
 - Configure notifications and webhooks
+- Enforce quality gates in CI/CD pipelines
 
 **Task Sequence**:
 1. `tasks/ci-cd/task-001-setup-jenkins-server.md`
-2. `tasks/ci-cd/task-002-create-jenkins-backend-pipeline.md`
-3. `tasks/ci-cd/task-003-create-jenkins-frontend-pipeline.md`
+2. `tasks/ci-cd/task-002-create-jenkins-backend-pipeline.md` (includes code quality checks)
+3. `tasks/ci-cd/task-003-create-jenkins-frontend-pipeline.md` (includes code quality checks)
 4. `tasks/ci-cd/task-004-configure-github-webhook.md`
-5. `tasks/ci-cd/task-005-setup-github-actions-backend.md`
-6. `tasks/ci-cd/task-006-setup-github-actions-frontend.md`
-7. `tasks/ci-cd/task-007-add-automated-testing.md`
+5. `tasks/ci-cd/task-005-setup-github-actions-backend.md` (includes code quality checks)
+6. `tasks/ci-cd/task-006-setup-github-actions-frontend.md` (includes code quality checks)
+7. `tasks/ci-cd/task-007-add-automated-testing.md` (includes comprehensive code quality)
 8. `tasks/ci-cd/task-008-add-docker-build-and-push.md`
 9. `tasks/ci-cd/task-009-add-kubernetes-deployment.md`
 10. `tasks/ci-cd/task-010-configure-notifications.md`
+11. `tasks/ci-cd/task-011-setup-sonarqube.md` (NEW - SonarQube setup)
+12. `tasks/ci-cd/task-012-configure-sonarqube-project.md` (NEW - SonarQube configuration)
+13. `tasks/ci-cd/task-013-integrate-sonarqube-in-pipelines.md` (NEW - SonarQube integration)
 
 **Success Criteria**:
 - Code pushes trigger automated builds
+- Code quality checks (ESLint, Prettier, security scanning) run automatically
 - Tests run automatically in pipelines
+- SonarQube analysis runs on every code change
+- Quality gates prevent merging low-quality code
 - Docker images built and pushed to registry
 - Automatic deployment to Kubernetes
 - Notifications sent on pipeline status
+- Code coverage reports generated and tracked
 
 ---
 
@@ -350,6 +360,162 @@ The Notes App is a simple but complete application:
 
 ---
 
+### Phase 10: GitOps (Issues #140-142)
+**Estimated Time**: 2-3 weeks  
+**Prerequisites**: Phase 2 complete (Kubernetes), Phase 13 (Helm) recommended
+
+**Learning Objectives**:
+- Understand GitOps principles and workflows
+- Set up Flux CD for GitOps deployments
+- Set up Argo CD as alternative GitOps tool
+- Manage multi-cluster and multi-environment deployments
+- Compare GitOps tools and choose appropriate solution
+- Implement GitOps best practices
+
+**Task Sequence**:
+1. `tasks/gitops/task-001-setup-flux-cd.md`
+2. `tasks/gitops/task-002-setup-argo-cd.md`
+3. `tasks/gitops/task-003-multi-cluster-argocd.md`
+4. `tasks/gitops/task-004-gitops-best-practices.md`
+
+**Success Criteria**:
+- Flux CD managing Notes App deployments
+- Argo CD set up and operational
+- Multi-environment GitOps working
+- Git as single source of truth
+- All cluster changes via Git commits
+
+---
+
+### Phase 11: Service Mesh (Issue #143)
+**Estimated Time**: 2-3 weeks  
+**Prerequisites**: Phase 2 complete (Kubernetes), Phase 12 (Microservices) recommended
+
+**Learning Objectives**:
+- Understand service mesh concepts and architecture
+- Install and configure Istio service mesh
+- Implement traffic management (canary, blue-green)
+- Enable mTLS for service-to-service security
+- Integrate observability tools (Prometheus, Grafana, Jaeger)
+- Manage service mesh policies
+
+**Task Sequence**:
+1. `tasks/service-mesh/task-001-setup-istio.md`
+2. `tasks/service-mesh/task-002-istio-traffic-management.md`
+3. `tasks/service-mesh/task-003-istio-security-mtls.md`
+4. `tasks/service-mesh/task-004-istio-observability.md`
+
+**Success Criteria**:
+- Istio installed and managing Notes App services
+- Traffic routing controlled declaratively
+- mTLS enforced between services
+- Observability dashboards operational
+- Service mesh policies applied
+
+---
+
+### Phase 12: Microservices Architecture (Issues #134-136)
+**Estimated Time**: 4-5 weeks  
+**Prerequisites**: Phase 1-2 complete, networking basics, database knowledge
+
+**Learning Objectives**:
+- Refactor monolithic Notes App into microservices
+- Design database strategy for microservices
+- Implement service discovery in Kubernetes
+- Add resilience patterns (circuit breakers, retries)
+- Set up distributed tracing with Jaeger
+- Implement Saga pattern for distributed transactions
+
+**Task Sequence**:
+1. `tasks/microservices/task-001-introduce-microservices-architecture.md`
+2. `tasks/microservices/task-002-microservices-database-design.md`
+3. `tasks/microservices/task-003-service-discovery-kubernetes.md`
+4. `tasks/microservices/task-004-circuit-breakers-retries.md`
+5. `tasks/microservices/task-005-distributed-tracing-jaeger.md`
+6. `tasks/microservices/task-006-saga-pattern.md`
+
+**Success Criteria**:
+- Notes App split into microservices (Auth, Notes, Users)
+- Database per service implemented
+- Services discover each other automatically
+- Resilience patterns prevent cascading failures
+- Distributed tracing operational
+- Saga pattern handles distributed transactions
+
+---
+
+### Phase 13: Advanced Kubernetes - Helm (Issue #139)
+**Estimated Time**: 2-3 weeks  
+**Prerequisites**: Phase 2 complete (Kubernetes basics)
+
+**Learning Objectives**:
+- Understand Helm package manager for Kubernetes
+- Create Helm charts for Notes App
+- Configure environment-specific deployments
+- Integrate Helm into CI/CD pipelines
+- Manage Kubernetes applications as packages
+
+**Task Sequence**:
+1. `tasks/helm/task-001-install-helm.md`
+2. `tasks/helm/task-002-create-helm-chart.md`
+3. `tasks/helm/task-003-helm-environments.md`
+4. `tasks/helm/task-004-helm-cicd-integration.md`
+
+**Additional Kubernetes Tasks**:
+- `tasks/kubernetes/task-011-kubernetes-pods-probes-ingress.md` - Advanced Pods with Ingress
+- `tasks/kubernetes/task-012-kubernetes-comprehensive-coverage.md` - Comprehensive coverage checklist
+
+**Success Criteria**:
+- Helm installed and configured
+- Notes App deployed via Helm charts
+- Environment-specific configurations working
+- Helm integrated in CI/CD
+- All Kubernetes resources managed via Helm
+
+---
+
+### Phase 14: HashiCorp Ecosystem Expansion (Issue #144)
+**Estimated Time**: 3-4 weeks  
+**Prerequisites**: Phase 2 complete (Kubernetes), Phase 6 (Terraform, Vault)
+
+**Learning Objectives**:
+- Install and configure HashiCorp Consul
+- Use Consul for service discovery
+- Implement Consul for configuration management
+- Install and configure HashiCorp Nomad
+- Deploy applications to Nomad
+- Compare Nomad vs Kubernetes
+
+**Task Sequence**:
+1. `tasks/hashicorp/task-011-install-consul.md`
+2. `tasks/hashicorp/task-012-consul-service-discovery.md`
+3. `tasks/hashicorp/task-013-consul-configuration-management.md`
+4. `tasks/hashicorp/task-014-install-nomad.md`
+5. `tasks/hashicorp/task-015-nomad-job-scheduling.md`
+6. `tasks/hashicorp/task-016-nomad-kubernetes-comparison.md`
+
+**Success Criteria**:
+- Consul installed and managing service discovery
+- Configuration stored in Consul KV
+- Nomad installed and operational
+- Applications deployed to Nomad
+- Understanding of Nomad vs Kubernetes trade-offs
+
+---
+
+### Phase 7 Update: Cloud & AWS - Enhanced (Issues #145-146)
+**Additional Learning Objectives**:
+- Ensure all AWS tasks use Free Tier resources
+- Cover all AWS Developer Associate exam topics
+- Map AWS services to Notes App implementation
+
+**Additional Task**:
+- `tasks/aws/task-011-aws-developer-associate-coverage.md` - Comprehensive AWS Developer Associate coverage checklist
+
+**Note**: All AWS tasks should emphasize AWS Free Tier usage to minimize costs during learning.
+
+---
+
 ## Learning Tips
 
 1. **Follow the sequence**: Each phase builds on previous knowledge
@@ -362,9 +528,11 @@ The Notes App is a simple but complete application:
 
 ## Estimated Total Time
 
-- **Minimum**: 20-25 weeks (part-time, 10-15 hours/week)
-- **Recommended**: 30-35 weeks (part-time, 10-15 hours/week)
-- **Intensive**: 12-15 weeks (full-time, 40 hours/week)
+- **Minimum**: 25-30 weeks (part-time, 10-15 hours/week)
+- **Recommended**: 35-40 weeks (part-time, 10-15 hours/week)
+- **Intensive**: 15-18 weeks (full-time, 40 hours/week)
+
+**Note**: Time estimates updated to include new advanced phases (GitOps, Service Mesh, Microservices, Helm, HashiCorp expansion)
 
 ## Next Steps
 

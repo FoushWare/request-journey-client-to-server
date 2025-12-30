@@ -7,15 +7,20 @@ This directory contains detailed, step-by-step tasks for learning DevOps through
 ```
 tasks/
 ├── docker/          # Docker containerization tasks (Issues #32-40)
-├── kubernetes/      # Kubernetes/OpenShift orchestration tasks (Issues #41-50)
+├── kubernetes/      # Kubernetes/OpenShift orchestration tasks (Issues #41-50, #133, #138)
 ├── ci-cd/           # CI/CD pipeline tasks (Issues #51-60)
 ├── security/        # Security hardening tasks (Issues #61-70)
 ├── logging/         # Logging and monitoring tasks (Issues #71-80)
 ├── nginx/           # NGINX reverse proxy tasks (Issues #81-90)
 ├── ansible/         # Ansible automation tasks (Issues #91-100)
-├── aws/             # AWS cloud services tasks (Issues #101-110)
+├── aws/             # AWS cloud services tasks (Issues #101-110, #145-146)
 ├── integration/     # Integration and final steps (Issues #111-120)
-└── networking/      # Networking and protocols (Issues #121-131)
+├── networking/      # Networking and protocols (Issues #121-131)
+├── gitops/          # GitOps tasks (Issues #140-142)
+├── service-mesh/    # Service mesh tasks (Issue #143)
+├── microservices/   # Microservices architecture tasks (Issues #134-136)
+├── helm/            # Helm package manager tasks (Issue #139)
+└── hashicorp/       # HashiCorp ecosystem tasks (Issue #144)
 ```
 
 ## Task Numbering System
@@ -150,6 +155,53 @@ Advanced networking tasks:
 - gRPC integration
 
 **Prerequisites**: Complete Docker and Kubernetes tasks
+
+#### GitOps (Phase 10)
+GitOps continuous delivery tasks:
+- Flux CD setup and configuration
+- Argo CD setup and comparison
+- Multi-cluster GitOps
+- GitOps best practices
+
+**Prerequisites**: Complete Kubernetes tasks, Helm recommended
+
+#### Service Mesh (Phase 11)
+Service mesh tasks:
+- Istio installation and configuration
+- Traffic management (canary, blue-green)
+- mTLS security
+- Observability integration
+
+**Prerequisites**: Complete Kubernetes tasks, Microservices recommended
+
+#### Microservices (Phase 12)
+Microservices architecture tasks:
+- Monolith to microservices refactoring
+- Database design for microservices
+- Service discovery
+- Resilience patterns (circuit breakers, retries)
+- Distributed tracing
+- Saga pattern
+
+**Prerequisites**: Complete Docker, Kubernetes, and networking tasks
+
+#### Helm (Phase 13)
+Kubernetes package manager tasks:
+- Helm installation
+- Creating Helm charts
+- Environment-specific configurations
+- CI/CD integration
+
+**Prerequisites**: Complete Kubernetes basics
+
+#### HashiCorp (Phase 14)
+HashiCorp ecosystem expansion tasks:
+- Consul for service discovery
+- Consul for configuration management
+- Nomad installation and job scheduling
+- Nomad vs Kubernetes comparison
+
+**Prerequisites**: Complete Kubernetes tasks, Terraform and Vault experience helpful
 
 ## Task Status Tracking
 
