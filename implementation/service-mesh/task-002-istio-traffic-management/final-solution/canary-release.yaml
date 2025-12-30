@@ -1,0 +1,20 @@
+# Canary Release: 90% to v1, 10% to v2
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: notes-app-backend-canary
+  namespace: notes-app
+spec:
+  hosts:
+  - notes-app-backend
+  http:
+  - route:
+    - destination:
+        host: notes-app-backend
+        subset: v1
+      weight: 90
+    - destination:
+        host: notes-app-backend
+        subset: v2
+      weight: 10
+

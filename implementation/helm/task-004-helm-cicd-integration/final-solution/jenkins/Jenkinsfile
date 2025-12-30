@@ -1,0 +1,83 @@
+pipeline {
+    agent any
+    
+    environment {
+        HELM_CHART_PATH = './notes-app'
+        KUBECONFIG = credentials('kubeconfig')
+    }
+    
+    stages {
+        stage('Lint Helm Chart') {
+            steps {
+                sh '''
+                    helm lint ${HELM_CHART_PATH}
+                '''
+            }
+        }
+        
+        stage('Package Chart') {
+            steps {
+                sh '''
+                    helm package ${HELM_CHART_PATH}
+                '''
+            }
+        }
+        
+        stage('Deploy to Dev') {
+            steps {
+                sh '''
+                    helm upgrade --install notes-app-dev ${HELM_CHART_PATH} \
+                        -f ${HELM_CHART_PATH}/values-dev.yaml \
+                        --namespace notes-app-dev \
+                        --create-namespace \
+                        --wait \
+                        --timeout 5m
+                '''
+            }
+        }
+        
+        stage('Deploy to Staging') {
+            when {
+                branch 'staging'
+            }
+            steps {
+                sh '''
+                    helm upgrade --install notes-app-staging ${HELM_CHART_PATH} \
+                        -f ${HELM_CHART_PATH}/values-staging.yaml \
+                        --namespace notes-app-staging \
+                        --create-namespace \
+                        --wait \
+                        --timeout 5m
+                '''
+            }
+        }
+        
+        stage('Deploy to Prod') {
+            when {
+                branch 'main'
+            }
+            steps {
+                sh '''
+                    helm upgrade --install notes-app-prod ${HELM_CHART_PATH} \
+                        -f ${HELM_CHART_PATH}/values-prod.yaml \
+                        --namespace notes-app-prod \
+                        --create-namespace \
+                        --wait \
+                        --timeout 5m
+                '''
+            }
+        }
+    }
+    
+    post {
+        failure {
+            script {
+                // Rollback on failure
+                sh '''
+                    helm rollback notes-app-${ENV} || true
+                '''
+            }
+        }
+    }
+}
+

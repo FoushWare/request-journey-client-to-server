@@ -1,0 +1,63 @@
+# Default values for notes-app
+replicaCount: 2
+
+image:
+  repository: notes-app
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+backend:
+  image:
+    repository: notes-app-backend
+    tag: "v1.0.0"
+  replicaCount: 2
+  service:
+    type: ClusterIP
+    port: 5000
+  resources:
+    requests:
+      cpu: 250m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+frontend:
+  image:
+    repository: notes-app-frontend
+    tag: "v1.0.0"
+  replicaCount: 2
+  service:
+    type: ClusterIP
+    port: 3000
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
+database:
+  enabled: true
+  type: postgresql
+  host: postgresql
+  port: 5432
+  name: notes_db
+  user: notes_user
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: notes-app.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: notes-app-tls
+      hosts:
+        - notes-app.example.com
+

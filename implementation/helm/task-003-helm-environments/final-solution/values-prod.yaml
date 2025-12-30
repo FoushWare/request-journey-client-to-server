@@ -1,0 +1,42 @@
+# Production Environment Values
+replicaCount: 3
+
+backend:
+  replicaCount: 3
+  image:
+    tag: "v1.0.0"  # Specific version for production
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+
+frontend:
+  replicaCount: 3
+  image:
+    tag: "v1.0.0"  # Specific version for production
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+ingress:
+  enabled: true
+  hosts:
+    - host: notes-app.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: notes-app-tls
+      hosts:
+        - notes-app.example.com
+
+database:
+  host: postgresql-prod
+

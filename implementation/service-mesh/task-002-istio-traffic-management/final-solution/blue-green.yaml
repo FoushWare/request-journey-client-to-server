@@ -1,0 +1,21 @@
+# Blue-Green Deployment: Switch all traffic to green
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: notes-app-backend-blue-green
+  namespace: notes-app
+spec:
+  hosts:
+  - notes-app-backend
+  http:
+  - route:
+    - destination:
+        host: notes-app-backend
+        subset: blue
+      weight: 0  # Start with 0% to blue
+    - destination:
+        host: notes-app-backend
+        subset: green
+      weight: 100  # 100% to green
+  # To rollback: change weights to 100% blue, 0% green
+

@@ -1,0 +1,41 @@
+# Kiali Installation for Service Mesh Visualization
+# Install using: kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.19/samples/addons/kiali.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: kiali
+  namespace: istio-system
+spec:
+  type: ClusterIP
+  ports:
+  - port: 20001
+    name: http
+    targetPort: 20001
+  selector:
+    app: kiali
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kiali
+  namespace: istio-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kiali
+  template:
+    metadata:
+      labels:
+        app: kiali
+    spec:
+      containers:
+      - name: kiali
+        image: quay.io/kiali/kiali:v1.73
+        ports:
+        - containerPort: 20001
+        env:
+        - name: AUTH_STRATEGY
+          value: "anonymous"
+

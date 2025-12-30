@@ -1,0 +1,23 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: notes-app
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: ./clusters/dev/apps/notes-app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  validation: client
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: notes-app-backend
+      namespace: notes-app
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: notes-app-frontend
+      namespace: notes-app
+

@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: notes-app-prod
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/FoushWare/request-journey-client-to-server
+    targetRevision: prod
+    path: clusters/prod/apps/notes-app
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: notes-app-prod
+  syncPolicy:
+    # Manual sync only for production
+    syncOptions:
+      - CreateNamespace=true
+    automated: {}  # Disabled for production
+

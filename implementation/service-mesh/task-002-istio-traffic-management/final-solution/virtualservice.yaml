@@ -1,0 +1,31 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: notes-app
+  namespace: notes-app
+spec:
+  hosts:
+  - notes-app-backend
+  - notes-app-frontend
+  http:
+  # Route /api requests to backend
+  - match:
+    - uri:
+        prefix: "/api"
+    route:
+    - destination:
+        host: notes-app-backend
+        port:
+          number: 5000
+      weight: 100
+  # Route / requests to frontend
+  - match:
+    - uri:
+        prefix: "/"
+    route:
+    - destination:
+        host: notes-app-frontend
+        port:
+          number: 3000
+      weight: 100
+

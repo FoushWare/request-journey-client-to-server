@@ -1,0 +1,14 @@
+# Enable mTLS for all services in notes-app namespace
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: notes-app
+spec:
+  mtls:
+    mode: STRICT  # Enforce mTLS for all connections
+
+---
+# For gradual rollout, use PERMISSIVE first:
+# mode: PERMISSIVE  # Allows both mTLS and plain text
+

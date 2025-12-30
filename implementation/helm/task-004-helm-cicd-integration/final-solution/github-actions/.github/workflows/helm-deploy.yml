@@ -1,0 +1,68 @@
+name: Helm Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: 'latest'
+      
+      - name: Configure kubectl
+        uses: azure/setup-kubectl@v3
+      
+      - name: Set up Kubeconfig
+        run: |
+          echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
+          export KUBECONFIG=./kubeconfig
+      
+      - name: Lint Helm Chart
+        run: |
+          helm lint ./notes-app
+      
+      - name: Deploy to Dev
+        if: github.ref == 'refs/heads/dev'
+        run: |
+          helm upgrade --install notes-app-dev ./notes-app \
+            -f ./notes-app/values-dev.yaml \
+            --namespace notes-app-dev \
+            --create-namespace \
+            --wait \
+            --timeout 5m
+      
+      - name: Deploy to Staging
+        if: github.ref == 'refs/heads/staging'
+        run: |
+          helm upgrade --install notes-app-staging ./notes-app \
+            -f ./notes-app/values-staging.yaml \
+            --namespace notes-app-staging \
+            --create-namespace \
+            --wait \
+            --timeout 5m
+      
+      - name: Deploy to Prod
+        if: github.ref == 'refs/heads/main'
+        run: |
+          helm upgrade --install notes-app-prod ./notes-app \
+            -f ./notes-app/values-prod.yaml \
+            --namespace notes-app-prod \
+            --create-namespace \
+            --wait \
+            --timeout 5m
+      
+      - name: Rollback on Failure
+        if: failure()
+        run: |
+          ENV=$(echo ${{ github.ref }} | sed 's/refs\/heads\///')
+          helm rollback notes-app-${ENV} || true
+
