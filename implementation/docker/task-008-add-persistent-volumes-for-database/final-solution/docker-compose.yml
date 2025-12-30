@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: notes-postgres
+    environment:
+      POSTGRES_DB: notes_db
+      POSTGRES_USER: notes_user
+      POSTGRES_PASSWORD: notes_password
+    volumes:
+      # Named volume for data persistence
+      - postgres_data:/var/lib/postgresql/data
+      # Optional: Bind mount for backups
+      - ./backups:/backups
+    networks:
+      - notes-network
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: notes_db
+      DB_USER: notes_user
+      DB_PASSWORD: notes_password
+    networks:
+      - notes-network
+    depends_on:
+      - postgres
+
+  frontend:
+    build: ./frontend
+    networks:
+      - notes-network
+    depends_on:
+      - backend
+
+volumes:
+  # Named volume - managed by Docker
+  postgres_data:
+    driver: local
+    # Optional: specify driver options
+    # driver_opts:
+    #   type: none
+    #   device: /path/to/host/storage
+    #   o: bind
+
+networks:
+  notes-network:
+    driver: bridge
+

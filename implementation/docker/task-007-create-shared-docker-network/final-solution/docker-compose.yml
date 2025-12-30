@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: notes-postgres
+    environment:
+      POSTGRES_DB: notes_db
+      POSTGRES_USER: notes_user
+      POSTGRES_PASSWORD: notes_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - notes-network
+
+  backend:
+    build: ./backend
+    container_name: notes-backend
+    environment:
+      DB_HOST: postgres  # Use service name
+      DB_PORT: 5432
+      DB_NAME: notes_db
+      DB_USER: notes_user
+      DB_PASSWORD: notes_password
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+    networks:
+      - notes-network
+
+  frontend:
+    build: ./frontend
+    container_name: notes-frontend
+    environment:
+      NEXT_PUBLIC_API_URL: http://backend:5000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - notes-network
+
+volumes:
+  postgres_data:
+
+networks:
+  notes-network:
+    driver: bridge
+    name: notes-app-network
+
