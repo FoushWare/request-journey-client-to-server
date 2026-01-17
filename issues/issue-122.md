@@ -1,15 +1,18 @@
 # Issue #122: Issue 1.2 – Layer 1 – Physical Layer
 
-**State:** Open  
-**Created:** 2025-12-03T11:18:41Z  
-**Updated:** 2025-12-03T11:18:41Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/122
+**Status**: open  
+**Created**: 2025-12-03T11:18:41Z  
+**Updated**: 2025-12-03T11:18:41Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/122](https://github.com/FoushWare/request-journey-client-to-server/issues/122)
 
-**Labels:** None
+## Details
 
-**Parent Issue:** https://github.com/FoushWare/request-journey-client-to-server/issues/1
+**Labels**:   
+**Assignees**:   
+**Milestone**: None  
 
----
+## Description
 
 ## Objective  
 Learn about the Physical layer of the OSI model.

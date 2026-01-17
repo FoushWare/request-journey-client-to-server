@@ -1,15 +1,18 @@
 # Issue #129: Issue 1.9 – Draw full OSI model diagram (layers + examples)
 
-**State:** Open  
-**Created:** 2025-12-03T11:21:10Z  
-**Updated:** 2025-12-03T11:21:10Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/129
+**Status**: open  
+**Created**: 2025-12-03T11:21:10Z  
+**Updated**: 2025-12-03T11:21:10Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/129](https://github.com/FoushWare/request-journey-client-to-server/issues/129)
 
-**Labels:** None
+## Details
 
-**Parent Issue:** https://github.com/FoushWare/request-journey-client-to-server/issues/1
+**Labels**:   
+**Assignees**:   
+**Milestone**: None  
 
----
+## Description
 
 ## Objective  
 Visualize the OSI model with all 7 layers and example protocols/technologies.

@@ -1,13 +1,18 @@
 # Issue #135: Microservices Database Design & Data Ownership
 
-**State:** Open  
-**Created:** 2025-12-17T18:01:30Z  
-**Updated:** 2025-12-17T18:01:30Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/135
+**Status**: open  
+**Created**: 2025-12-17T18:01:30Z  
+**Updated**: 2025-12-17T18:01:30Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/135](https://github.com/FoushWare/request-journey-client-to-server/issues/135)
 
-**Labels:** None
+## Details
 
----
+**Labels**:   
+**Assignees**:   
+**Milestone**: None  
+
+## Description
 
 Excellent topic. This is **advanced microservices thinking**, not just tooling.
 Below is a **clean, production-grade GitHub issue** that fits perfectly after your microservices issue and connects **databases + immutability + data ownership**.

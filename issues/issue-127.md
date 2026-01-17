@@ -1,15 +1,18 @@
 # Issue #127: Issue 1.7 – Layer 6 – Presentation Layer
 
-**State:** Open  
-**Created:** 2025-12-03T11:20:35Z  
-**Updated:** 2025-12-03T11:20:35Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/127
+**Status**: open  
+**Created**: 2025-12-03T11:20:35Z  
+**Updated**: 2025-12-03T11:20:35Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/127](https://github.com/FoushWare/request-journey-client-to-server/issues/127)
 
-**Labels:** None
+## Details
 
-**Parent Issue:** https://github.com/FoushWare/request-journey-client-to-server/issues/1
+**Labels**:   
+**Assignees**:   
+**Milestone**: None  
 
----
+## Description
 
 ## Objective  
 Understand Presentation layer: data translation, encryption, formatting.

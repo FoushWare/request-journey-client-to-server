@@ -1,15 +1,18 @@
 # Issue #126: Issue 1.6 – Layer 5 – Session Layer
 
-**State:** Open  
-**Created:** 2025-12-03T11:20:16Z  
-**Updated:** 2025-12-03T11:20:16Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/126
+**Status**: open  
+**Created**: 2025-12-03T11:20:16Z  
+**Updated**: 2025-12-03T11:20:16Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/126](https://github.com/FoushWare/request-journey-client-to-server/issues/126)
 
-**Labels:** None
+## Details
 
-**Parent Issue:** https://github.com/FoushWare/request-journey-client-to-server/issues/1
+**Labels**:   
+**Assignees**:   
+**Milestone**: None  
 
----
+## Description
 
 ## Objective  
 Learn about Session layer responsibilities: managing sessions between applications.

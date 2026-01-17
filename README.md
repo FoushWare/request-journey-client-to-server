@@ -172,4 +172,88 @@ request-journey-client-to-server/
 
 ```
 
+---
+
+## 🔄 Development Workflow
+
+This project uses a professional **Git Flow** branching strategy with automated GitHub issue synchronization.
+
+### Quick Start
+
+```bash
+# 1. Sync GitHub issues to local files
+./sync-github-issues.sh
+
+# 2. Generate tasks, plans, and documentation from issues
+./create-from-issues.sh all
+
+# 3. Create a feature branch from develop
+git checkout develop
+git pull origin develop
+git checkout -b feature/issue-123-description
+
+# 4. Implement the feature and commit
+git add .
+git commit -m "feat: implement feature as per issue #123"
+git push origin feature/issue-123-description
+
+# 5. Create PR and merge after review
+```
+
+### Key Documents
+
+- **[GITFLOW_STRATEGY.md](GITFLOW_STRATEGY.md)** - Branching strategy & conventions
+- **[WORKFLOW_GUIDE.md](WORKFLOW_GUIDE.md)** - Step-by-step workflow guide
+- **[SETUP_COMPLETE.md](SETUP_COMPLETE.md)** - Setup summary & quick reference
+- **[SCRIPT_USAGE_EXAMPLES.md](SCRIPT_USAGE_EXAMPLES.md)** - Script examples & automation
+- **[VERIFICATION_CHECKLIST.md](VERIFICATION_CHECKLIST.md)** - Setup verification
+
+### Branch Structure
+
+```
+master (production) ← release branches ← develop ← feature branches
+```
+
+- **`master`** - Production-ready code only
+- **`develop`** - Integration branch for features
+- **`feature/*`** - Feature development (from develop)
+- **`release/*`** - Release preparation (from develop to master)
+- **`hotfix/*`** - Emergency fixes (from master)
+
+### Automation Scripts
+
+1. **`sync-github-issues.sh`**
+   - Syncs all GitHub issues to `issues/` folder
+   - Creates markdown files for each issue
+   - Generates sync summary
+
+2. **`create-from-issues.sh`**
+   - Generates tasks from issues → `tasks/`
+   - Generates implementation plans → `plans/`
+   - Generates technical documentation → `docs/`
+
+### Workflow: Issue → Implementation
+
+1. **Sync** - `./sync-github-issues.sh`
+2. **Generate** - `./create-from-issues.sh all`
+3. **Branch** - `git checkout -b feature/issue-XXX`
+4. **Implement** - Follow generated task checklist
+5. **Commit** - Use semantic messages: `feat:`, `fix:`, `docs:`
+6. **Review** - Create PR, get approval
+7. **Merge** - Merge to develop, tag release when ready
+
+### GitHub Token Setup (Recommended)
+
+For higher API rate limits:
+
+```bash
+export GITHUB_TOKEN=ghp_your_token_here
+./sync-github-issues.sh
+```
+
+Get token: GitHub Settings → Developer settings → Personal access tokens  
+Scopes needed: `repo`, `read:user`
+
+---
+
 

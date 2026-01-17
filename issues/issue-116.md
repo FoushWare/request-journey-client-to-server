@@ -1,13 +1,18 @@
 # Issue #116: 116 – Integrate Ansible automation for full stack
 
-**State:** Open  
-**Created:** 2025-12-02T13:59:21Z  
-**Updated:** 2025-12-02T13:59:21Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/116
+**Status**: open  
+**Created**: 2025-12-02T13:59:21Z  
+**Updated**: 2025-12-02T13:59:21Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/116](https://github.com/FoushWare/request-journey-client-to-server/issues/116)
 
-**Labels:** integration+ansible+automation
+## Details
 
----
+**Labels**: integration+ansible+automation  
+**Assignees**:   
+**Milestone**: None  
+
+## Description
 
 ## Objective
 Use Ansible to deploy full stack environment.

@@ -1,13 +1,18 @@
 # Issue #136: Service Discovery in Kubernetes  Circuit Breakers & Retries Distributed Tracing (Jaeger / OpenTelemetry)  Saga Pattern for Distributed Transactions
 
-**State:** Open  
-**Created:** 2025-12-17T18:03:17Z  
-**Updated:** 2025-12-17T18:03:17Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/136
+**Status**: open  
+**Created**: 2025-12-17T18:03:17Z  
+**Updated**: 2025-12-17T18:03:17Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/136](https://github.com/FoushWare/request-journey-client-to-server/issues/136)
 
-**Labels:** None
+## Details
 
----
+**Labels**:   
+**Assignees**:   
+**Milestone**: None  
+
+## Description
 
 Perfect. Below is the **next clean batch of GitHub issues**, fully aligned with your project rules:
 

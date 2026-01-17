@@ -1,13 +1,18 @@
 # Issue #141: argo cd
 
-**State:** Open  
-**Created:** 2025-12-23T12:50:37Z  
-**Updated:** 2025-12-23T12:50:37Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/141
+**Status**: open  
+**Created**: 2025-12-23T12:50:37Z  
+**Updated**: 2025-12-23T12:50:37Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/141](https://github.com/FoushWare/request-journey-client-to-server/issues/141)
 
-**Labels:** None
+## Details
 
----
+**Labels**:   
+**Assignees**:   
+**Milestone**: None  
+
+## Description
 
 ## Objective
 Introduce **Argo CD** as an alternative GitOps tool to manage Kubernetes deployments declaratively and compare it with Flux CD.

@@ -1,13 +1,18 @@
 # Issue #130: 121- Implement HTTP Requests Polyfill with CORS & Retry Handling
 
-**State:** Open  
-**Created:** 2025-12-03T11:29:05Z  
-**Updated:** 2025-12-03T11:29:05Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/130
+**Status**: open  
+**Created**: 2025-12-03T11:29:05Z  
+**Updated**: 2025-12-03T11:29:05Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/130](https://github.com/FoushWare/request-journey-client-to-server/issues/130)
 
-**Labels:** None
+## Details
 
----
+**Labels**:   
+**Assignees**:   
+**Milestone**: None  
+
+## Description
 
 ## Objective
 Learn to handle HTTP requests robustly, including CORS errors and retries, using a polyfill or wrapper. This improves understanding of client-server communication and browser behavior.

@@ -1,15 +1,18 @@
 # Issue #121: Issue 1.1 – Study OSI Model Overview (GeeksforGeeks)
 
-**State:** Open  
-**Created:** 2025-12-03T11:18:22Z  
-**Updated:** 2025-12-03T11:18:22Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/121
+**Status**: open  
+**Created**: 2025-12-03T11:18:22Z  
+**Updated**: 2025-12-03T11:18:22Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/121](https://github.com/FoushWare/request-journey-client-to-server/issues/121)
 
-**Labels:** None
+## Details
 
-**Parent Issue:** https://github.com/FoushWare/request-journey-client-to-server/issues/1
+**Labels**:   
+**Assignees**:   
+**Milestone**: None  
 
----
+## Description
 
 ## Objective  
 Understand what the OSI model is and why we use it.

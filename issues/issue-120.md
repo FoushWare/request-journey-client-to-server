@@ -1,13 +1,18 @@
 # Issue #120: 120 – Documentation and README update
 
-**State:** Open  
-**Created:** 2025-12-02T14:31:50Z  
-**Updated:** 2025-12-02T14:31:50Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/120
+**Status**: open  
+**Created**: 2025-12-02T14:31:50Z  
+**Updated**: 2025-12-02T14:31:50Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/120](https://github.com/FoushWare/request-journey-client-to-server/issues/120)
 
-**Labels:** documentation+readme+project
+## Details
 
----
+**Labels**: documentation+readme+project  
+**Assignees**:   
+**Milestone**: None  
+
+## Description
 
 ## Objective
 Document the full project for future reference.

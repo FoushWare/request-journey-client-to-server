@@ -1,13 +1,18 @@
 # Issue #118: 118 – Final security hardening
 
-**State:** Open  
-**Created:** 2025-12-02T14:07:02Z  
-**Updated:** 2025-12-02T14:07:02Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/118
+**Status**: open  
+**Created**: 2025-12-02T14:07:02Z  
+**Updated**: 2025-12-02T14:07:02Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/118](https://github.com/FoushWare/request-journey-client-to-server/issues/118)
 
-**Labels:** integration+security+hardening
+## Details
 
----
+**Labels**: integration+security+hardening  
+**Assignees**:   
+**Milestone**: None  
+
+## Description
 
 ## Objective
 Ensure the project is secure across all layers.

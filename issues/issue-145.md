@@ -1,13 +1,18 @@
 # Issue #145: AWS Developer Associate topics
 
-**State:** Open  
-**Created:** 2025-12-28T19:33:12Z  
-**Updated:** 2025-12-28T19:33:12Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/145
+**Status**: open  
+**Created**: 2025-12-28T19:33:12Z  
+**Updated**: 2025-12-28T19:33:12Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/145](https://github.com/FoushWare/request-journey-client-to-server/issues/145)
 
-**Labels:** None
+## Details
 
----
+**Labels**:   
+**Assignees**:   
+**Milestone**: None  
+
+## Description
 
 Perfect choice. Adding **AWS Developer Associate topics** turns your project into a real cloud-native curriculum instead of a toy app.
 

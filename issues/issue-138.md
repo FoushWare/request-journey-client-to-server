@@ -1,13 +1,18 @@
 # Issue #138: All Kubernetes concepts
 
-**State:** Open  
-**Created:** 2025-12-22T22:52:05Z  
-**Updated:** 2025-12-22T22:52:05Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/138
+**Status**: open  
+**Created**: 2025-12-22T22:52:05Z  
+**Updated**: 2025-12-22T22:52:05Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/138](https://github.com/FoushWare/request-journey-client-to-server/issues/138)
 
-**Labels:** None
+## Details
 
----
+**Labels**:   
+**Assignees**:   
+**Milestone**: None  
+
+## Description
 
 ## Objective
 Ensure this project fully covers **all Kubernetes concepts** from beginner to master level, aligned with a complete hands-on learning path.

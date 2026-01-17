@@ -1,13 +1,18 @@
 # Issue #119: 119 – Final testing and QA
 
-**State:** Open  
-**Created:** 2025-12-02T14:07:41Z  
-**Updated:** 2025-12-02T14:07:41Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/119
+**Status**: open  
+**Created**: 2025-12-02T14:07:41Z  
+**Updated**: 2025-12-02T14:07:41Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/119](https://github.com/FoushWare/request-journey-client-to-server/issues/119)
 
-**Labels:** integration+testing+qa
+## Details
 
----
+**Labels**: integration+testing+qa  
+**Assignees**:   
+**Milestone**: None  
+
+## Description
 
 ## Objective
 Perform full end-to-end testing of the system.

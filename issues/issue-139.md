@@ -1,13 +1,18 @@
 # Issue #139: Helm kubernetes
 
-**State:** Open  
-**Created:** 2025-12-23T12:46:54Z  
-**Updated:** 2025-12-23T12:46:54Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/139
+**Status**: open  
+**Created**: 2025-12-23T12:46:54Z  
+**Updated**: 2025-12-23T12:46:54Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/139](https://github.com/FoushWare/request-journey-client-to-server/issues/139)
 
-**Labels:** None
+## Details
 
----
+**Labels**:   
+**Assignees**:   
+**Milestone**: None  
+
+## Description
 
 ## Objective
 Introduce **Helm** into the project to manage Kubernetes manifests as reusable, versioned, and configurable packages.

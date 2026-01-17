@@ -1,13 +1,18 @@
 # Issue #140: Flux CD Kubernetes deployments
 
-**State:** Open  
-**Created:** 2025-12-23T12:48:46Z  
-**Updated:** 2025-12-23T12:48:46Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/140
+**Status**: open  
+**Created**: 2025-12-23T12:48:46Z  
+**Updated**: 2025-12-23T12:48:46Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/140](https://github.com/FoushWare/request-journey-client-to-server/issues/140)
 
-**Labels:** None
+## Details
 
----
+**Labels**:   
+**Assignees**:   
+**Milestone**: None  
+
+## Description
 
 ## Objective
 Introduce **Flux CD** to implement a **GitOps workflow** where GitHub becomes the single source of truth for Kubernetes deployments.
@@ -129,5 +134,4 @@ Docker
       → Flux CD (GitOps)
         → AWS EKS
           → Observability + Security
-
 

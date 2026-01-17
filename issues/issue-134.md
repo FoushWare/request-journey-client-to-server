@@ -1,13 +1,18 @@
 # Issue #134: Introducing Microservices Architecture
 
-**State:** Open  
-**Created:** 2025-12-17T17:59:02Z  
-**Updated:** 2025-12-17T17:59:02Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/134
+**Status**: open  
+**Created**: 2025-12-17T17:59:02Z  
+**Updated**: 2025-12-17T17:59:02Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/134](https://github.com/FoushWare/request-journey-client-to-server/issues/134)
 
-**Labels:** None
+## Details
 
----
+**Labels**:   
+**Assignees**:   
+**Milestone**: None  
+
+## Description
 
 Perfect timing. This is a **core evolution point** in your project: going from a monolith to microservices.
 Below is a **production-grade GitHub issue**, aligned with everything you already added: Kubernetes, gRPC, NGINX, ELK, AWS, CI/CD.

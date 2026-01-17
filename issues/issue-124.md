@@ -1,15 +1,18 @@
 # Issue #124: Issue 1.4 – Layer 3 – Network Layer
 
-**State:** Open  
-**Created:** 2025-12-03T11:19:23Z  
-**Updated:** 2025-12-03T11:19:23Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/124
+**Status**: open  
+**Created**: 2025-12-03T11:19:23Z  
+**Updated**: 2025-12-03T11:19:23Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/124](https://github.com/FoushWare/request-journey-client-to-server/issues/124)
 
-**Labels:** None
+## Details
 
-**Parent Issue:** https://github.com/FoushWare/request-journey-client-to-server/issues/1
+**Labels**:   
+**Assignees**:   
+**Milestone**: None  
 
----
+## Description
 
 ## Objective  
 Learn about the Network layer: routing, logical addressing, packet forwarding.

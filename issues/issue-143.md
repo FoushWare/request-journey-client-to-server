@@ -1,13 +1,18 @@
 # Issue #143: Istio Service Mesh
 
-**State:** Open  
-**Created:** 2025-12-27T22:17:17Z  
-**Updated:** 2025-12-27T22:17:17Z  
-**URL:** https://github.com/FoushWare/request-journey-client-to-server/issues/143
+**Status**: open  
+**Created**: 2025-12-27T22:17:17Z  
+**Updated**: 2025-12-27T22:17:17Z  
+**Author**: @FoushWare  
+**URL**: [https://github.com/FoushWare/request-journey-client-to-server/issues/143](https://github.com/FoushWare/request-journey-client-to-server/issues/143)
 
-**Labels:** None
+## Details
 
----
+**Labels**:   
+**Assignees**:   
+**Milestone**: None  
+
+## Description
 
 ## Objective
 Introduce **Istio Service Mesh** to manage, secure, and observe service-to-service communication inside the Kubernetes cluster without changing application code.
