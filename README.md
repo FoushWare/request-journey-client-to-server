@@ -1,5 +1,8 @@
 # 🚀 Full-Stack DevOps Learning Project
 
+> **🌱 Now with [GitHub Spec-Kit](https://github.com/github/spec-kit) Integration!**  
+> Use Spec-Driven Development for structured, AI-assisted implementation. See [SPEC_KIT_INTEGRATION.md](SPEC_KIT_INTEGRATION.md) for details.
+
 ## Overview 🌟
 
 This project is a comprehensive, step-by-step learning initiative designed to take you through the **entire lifecycle of a modern web application** — from handling a simple client request to building a fully automated, monitored, secure, cloud-ready deployment.
@@ -96,10 +99,10 @@ The learning journey is divided into **8 progressive phases**, each building on 
 
 ## 📁 Folder Structure
 
-Below is a clean template for structuring your project:
+Below is the project structure:
 
 ```
-fullstack-devops-project/
+request-journey-client-to-server/
 │
 ├── frontend/ # React / Next.js Notes App
 │ ├── pages/
@@ -109,52 +112,63 @@ fullstack-devops-project/
 │
 ├── backend/ # Node.js + Express API
 │ ├── src/
-│ ├── prisma/ (optional)
+│ ├── routes/
+│ ├── controllers/
+│ ├── services/
 │ └── ...
 │
-├── database/
-│ ├── docker-postgres/
-│ ├── migrations/
-│ └── seeds/
+├── issues/ # GitHub Issues (149 issues)
+│ ├── issue-1.md through issue-149.md
+│ └── ...
 │
-├── nginx/
-│ ├── nginx.conf
-│ └── ssl/
+├── spec-kit/ # ⭐ Specifications Repository (NEW)
+│ ├── api-specs/ # API contracts and specifications
+│ ├── architecture/ # Architecture diagrams and ADRs
+│ ├── database-schemas/ # Database schema definitions
+│ ├── security-specs/ # Security configurations
+│ ├── deployment-specs/ # Kubernetes, Helm, Terraform
+│ ├── observability-specs/ # Monitoring, logging, tracing
+│ └── README.md
 │
-├── docker/
-│ ├── frontend.Dockerfile
-│ ├── backend.Dockerfile
-│ └── docker-compose.yml
+├── implementation/ # Code implementations for tasks
+│ ├── docker/
+│ ├── kubernetes/
+│ ├── ci-cd/
+│ ├── aws/
+│ └── ...
 │
-├── ansible/
-│ ├── playbooks/
-│ ├── inventory/
-│ └── roles/
+├── tasks/ # Learning tasks organized by category
+│ ├── docker/
+│ ├── kubernetes/
+│ ├── ci-cd/
+│ ├── security/
+│ ├── logging/
+│ ├── nginx/
+│ ├── ansible/
+│ ├── aws/
+│ └── ...
 │
-├── kubernetes/
-│ ├── deployments/
-│ ├── services/
-│ ├── ingress/
-│ └── configmaps/
+├── capsule-projects/ # Example projects
+│ ├── api-gateway/
+│ ├── blog-platform/
+│ ├── e-commerce-app/
+│ ├── realtime-chat/
+│ └── todo-project-management/
 │
-├── monitoring/
-│ ├── prometheus/
-│ ├── grafana/
-│ └── alerts/
+├── docs/ # Documentation
+│ ├── LEARNING_PATH.md
+│ ├── IMPLEMENTATION_STATUS.md
+│ └── ...
 │
-├── logging/
-│ ├── elasticsearch/
-│ ├── logstash/
-│ ├── kibana/
-│ └── filebeat/
+├── plans/ # Planning documents
+│ ├── 01-devops-learning-path-plan.md
+│ ├── 02-enhanced-plan-terraform-vault-implementation.md
+│ └── ...
 │
-├── aws/
-│ ├── ec2/
-│ ├── s3/
-│ ├── rds/
-│ └── lambda/
+├── scripts/ # Automation scripts
+│ └── process-new-issues.sh
 │
-└── README.md # Documentation
+└── README.md # This file
 
 ```
 
