@@ -100,3 +100,42 @@ type Node struct {
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+sequenceDiagram
+    participant N1 as Node 1 (Candidate)
+    participant N2 as Node 2 (Follower)
+    participant N3 as Node 3 (Follower)
+
+    Note over N1: Election timeout fires
+    N1->>N2: RequestVote(term=2, candidateId=1)
+    N1->>N3: RequestVote(term=2, candidateId=1)
+    N2-->>N1: VoteGranted=true
+    N3-->>N1: VoteGranted=true
+    Note over N1: Majority reached → becomes Leader
+    loop Heartbeat loop
+        N1->>N2: AppendEntries(term=2, entries=[])
+        N1->>N3: AppendEntries(term=2, entries=[])
+        N2-->>N1: Success
+        N3-->>N1: Success
+    end
+    Note over N1: Node 1 crashes
+    Note over N2: Election timeout fires
+    N2->>N3: RequestVote(term=3, candidateId=2)
+    N3-->>N2: VoteGranted=true
+    Note over N2: Becomes new Leader
+```
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you Raft implementation by building it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Kubernetes cluster | [`automation/terraform/modules/eks/`](../../automation/terraform/modules/eks/) | Provisions AWS EKS — runs production Go services with built-in Raft via etcd in the control plane |
+| Docker for local simulation | [`automation/ansible/roles/docker/`](../../automation/ansible/roles/docker/) | Ansible role to install Docker, used to containerise and run the Go Raft simulation nodes locally |

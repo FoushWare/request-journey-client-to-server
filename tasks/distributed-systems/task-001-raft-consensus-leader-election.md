@@ -162,3 +162,36 @@ See `implementation/distributed-systems/task-001-raft-simulation/starter/` for s
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+flowchart TD
+    F([Follower]) -->|election timeout expires| C([Candidate])
+    C -->|sends RequestVote RPC| V1[Node 1 votes]
+    C -->|sends RequestVote RPC| V2[Node 2 votes]
+    V1 -->|vote granted| C
+    V2 -->|vote granted| C
+    C -->|majority votes received| L([Leader])
+    L -->|AppendEntries heartbeat| F1[Follower A]
+    L -->|AppendEntries heartbeat| F2[Follower B]
+    F1 -->|heartbeat acknowledged| L
+    F2 -->|heartbeat acknowledged| L
+    L -->|heartbeat timeout missed| F
+    C -->|higher term discovered| F
+    style L fill:#2ecc71,color:#fff
+    style C fill:#f39c12,color:#fff
+    style F fill:#3498db,color:#fff
+```
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you Raft consensus by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Kubernetes cluster (etcd inside) | [`automation/terraform/modules/eks/`](../../automation/terraform/modules/eks/) | Provisions AWS EKS cluster — etcd runs as a managed control-plane component handling leader election automatically |
+| Local etcd cluster | [`automation/ansible/roles/docker/`](../../automation/ansible/roles/docker/) | Ansible role to install and configure Docker for running a local 3-node etcd cluster via docker-compose |

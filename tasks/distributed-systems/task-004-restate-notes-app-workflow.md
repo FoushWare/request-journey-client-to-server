@@ -76,3 +76,39 @@ Use Restate durable handlers for each step.
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant RT as Restate Runtime
+    participant WF as create-note Workflow
+    participant DB as Notes Database
+    participant Email as Email Service
+
+    C->>RT: POST /notes/create {title, body, userId}
+    RT->>RT: persist invocation
+    RT->>WF: invoke create-note handler
+    WF->>WF: ctx.run("validate") — validate input
+    WF->>DB: ctx.run("save-note") — write note to DB
+    DB-->>WF: note_id returned
+    WF->>Email: ctx.run("send-email") — notify user
+    Email-->>WF: email sent
+    WF-->>RT: workflow complete {note_id}
+    RT-->>C: 200 OK {note_id}
+
+    Note over RT,WF: On crash: Restate replays journal,<br/>skips completed steps, resumes from failure point
+```
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you durable workflows by building them yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Kubernetes cluster | [`automation/terraform/modules/eks/`](../../automation/terraform/modules/eks/) | Provisions AWS EKS to deploy both the Restate runtime and the Notes App workflow service as pods |
+| Notes App deployment | [`automation/ansible/roles/notes-app/`](../../automation/ansible/roles/notes-app/) | Ansible role that configures and deploys the Notes App, including Restate integration for durable workflows |

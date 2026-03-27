@@ -103,3 +103,44 @@ func electLeader(zk *zookeeper.Conn, nodeID string) {
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+sequenceDiagram
+    participant N1 as Node 1
+    participant N2 as Node 2
+    participant N3 as Node 3
+    participant ZK as ZooKeeper
+
+    N1->>ZK: create /election/node-0000000001 (ephemeral sequential)
+    N2->>ZK: create /election/node-0000000002 (ephemeral sequential)
+    N3->>ZK: create /election/node-0000000003 (ephemeral sequential)
+
+    ZK-->>N1: list children → [0001, 0002, 0003]
+    ZK-->>N2: list children → [0001, 0002, 0003]
+    ZK-->>N3: list children → [0001, 0002, 0003]
+
+    Note over N1: 0001 is smallest → Node 1 is LEADER
+    Note over N2: watch predecessor 0001
+    Note over N3: watch predecessor 0002
+
+    Note over N1: Node 1 crashes → ephemeral znode 0001 deleted
+    ZK->>N2: watch event: NodeDeleted /election/node-0000000001
+
+    N2->>ZK: list children → [0002, 0003]
+    Note over N2: 0002 is smallest → Node 2 is new LEADER
+    Note over N3: watch predecessor 0002
+```
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you ZooKeeper leader election by implementing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Kubernetes cluster | [`automation/terraform/modules/eks/`](../../automation/terraform/modules/eks/) | Provisions AWS EKS; Kubernetes natively handles leader election for controllers via leader-election leases, superseding manual ZooKeeper recipes |
+| Docker for local ZooKeeper election | [`automation/ansible/roles/docker/`](../../automation/ansible/roles/docker/) | Ansible role to install Docker, enabling local multi-container testing of the ZooKeeper leader election recipe |

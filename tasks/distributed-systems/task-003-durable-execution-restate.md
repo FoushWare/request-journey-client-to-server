@@ -131,3 +131,40 @@ Verify it's running: `curl http://localhost:9070/health`
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+flowchart LR
+    Client([Client]) -->|HTTP / gRPC request| RT[Restate Runtime]
+    RT -->|persists invocation journal| DB[(Journal Store)]
+    RT -->|invokes handler| H[Service Handler]
+    H -->|ctx.run step 1| S1[Step: Validate Input]
+    S1 -->|persisted| DB
+    H -->|ctx.run step 2| S2[Step: Call External API]
+    S2 -->|persisted| DB
+    H -->|ctx.run step 3| S3[Step: Write to DB]
+    S3 -->|persisted| DB
+    H -->|result| RT
+    RT -->|response| Client
+
+    subgraph Crash Recovery
+        CR([Process Crash]) -.->|replays journal| RT
+    end
+
+    style RT fill:#8e44ad,color:#fff
+    style H fill:#2980b9,color:#fff
+    style DB fill:#27ae60,color:#fff
+```
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you durable execution by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Kubernetes cluster | [`automation/terraform/modules/eks/`](../../automation/terraform/modules/eks/) | Provisions AWS EKS for deploying the Restate server and durable service handlers as Kubernetes workloads |
+| Docker for local Restate | [`automation/ansible/roles/docker/`](../../automation/ansible/roles/docker/) | Ansible role to install Docker, enabling `docker run restate/restate` for local durable-execution development |

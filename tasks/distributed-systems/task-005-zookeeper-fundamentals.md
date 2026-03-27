@@ -124,3 +124,45 @@ Research and summarize:
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+graph TD
+    subgraph ZooKeeper Ensemble
+        ZK1[ZooKeeper Node 1\nLeader]
+        ZK2[ZooKeeper Node 2\nFollower]
+        ZK3[ZooKeeper Node 3\nFollower]
+        ZK1 <-->|sync| ZK2
+        ZK1 <-->|sync| ZK3
+    end
+
+    subgraph Znode Tree
+        Root([/])
+        Root --> Services[/services]
+        Root --> Config[/config]
+        Services --> API[/services/api-1\nephemeral]
+        Services --> Worker[/services/worker-1\nephemeral]
+        Config --> DB[/config/db-host\npersistent]
+    end
+
+    ClientA([Client A]) -->|create ephemeral znode| API
+    ClientB([Client B]) -->|watch /services| ZK1
+    ZK1 -->|watch event: NodeCreated| ClientB
+
+    style ZK1 fill:#e67e22,color:#fff
+    style ZK2 fill:#3498db,color:#fff
+    style ZK3 fill:#3498db,color:#fff
+```
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you ZooKeeper by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Kubernetes cluster (ZooKeeper StatefulSet) | [`automation/terraform/modules/eks/`](../../automation/terraform/modules/eks/) | Provisions AWS EKS; ZooKeeper can be deployed as a StatefulSet with persistent volumes for each ensemble node |
+| Docker for local ZooKeeper | [`automation/ansible/roles/docker/`](../../automation/ansible/roles/docker/) | Ansible role to install Docker, enabling a local 3-node ZooKeeper ensemble via docker-compose for experimentation |
