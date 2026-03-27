@@ -135,3 +135,45 @@ Write code that reads `note.created` events and triggers emails.
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+graph LR
+    P1["Producer\n(Notes Service)"] -->|publish note.created| T
+    P2["Producer\n(User Service)"] -->|publish user.updated| T
+
+    subgraph T["Topic: note-events (3 partitions)"]
+        PA["Partition 0"]
+        PB["Partition 1"]
+        PC["Partition 2"]
+    end
+
+    PA --> CG
+    PB --> CG
+    PC --> CG
+
+    subgraph CG["Consumer Group: email-service-group"]
+        C1["Consumer 1\n(Email Service)"]
+        C2["Consumer 2\n(Email Service)"]
+        C3["Consumer 3\n(Notification Service)"]
+    end
+
+    C1 -->|trigger| E1["Send Email"]
+    C2 -->|trigger| E2["Send Email"]
+    C3 -->|trigger| E3["Push Notification"]
+```
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Docker / Kafka Compose | [`automation/ansible/roles/docker/`](../../automation/ansible/roles/docker/) | Ansible role to deploy Kafka via Docker Compose on a VM |
+| Kafka on Kubernetes | [`automation/ansible/roles/kubernetes/`](../../automation/ansible/roles/kubernetes/) | Ansible role to deploy Kafka with Strimzi or Helm on the K8s cluster |

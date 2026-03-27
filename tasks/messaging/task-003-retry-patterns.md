@@ -90,3 +90,52 @@ For each retry pattern, measure:
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+flowchart TD
+    MSG["Failed Message"] --> STRAT
+
+    subgraph STRAT["Choose Retry Strategy"]
+        direction TB
+        S1["Strategy A\nImmediate Retry"]
+        S2["Strategy B\nExponential Backoff + Jitter"]
+        S3["Strategy C\nRetry Topics (Non-Blocking)"]
+    end
+
+    S1 --> A1{"attempt < MAX?"}
+    A1 -->|yes — retry instantly| A2["process()"]
+    A2 -->|success| AOK["✅ Done"]
+    A2 -->|fail| A1
+    A1 -->|no| ADLQ["→ DLQ"]
+
+    S2 --> B1{"attempt < MAX?"}
+    B1 -->|yes| B2["wait 2ⁿ + jitter seconds"]
+    B2 --> B3["process()"]
+    B3 -->|success| BOK["✅ Done"]
+    B3 -->|fail| B1
+    B1 -->|no| BDLQ["→ DLQ"]
+
+    S3 --> C1["process()\nmain consumer"]
+    C1 -->|success| COK["✅ Done"]
+    C1 -->|fail| C2["→ retry-1 topic\n(delay 10s)"]
+    C2 -->|fail| C3["→ retry-2 topic\n(delay 60s)"]
+    C3 -->|fail| CDLQ["→ DLQ"]
+    C2 -->|success| COK2["✅ Done"]
+    C3 -->|success| COK3["✅ Done"]
+```
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Kafka on Kubernetes | [`automation/ansible/roles/kubernetes/`](../../automation/ansible/roles/kubernetes/) | Deploy Kafka with retry-topic topology configured via Helm |
+| Retry Count Alerting | [`automation/ansible/roles/monitoring/`](../../automation/ansible/roles/monitoring/) | Prometheus rules and Grafana panels alerting on high retry-topic message rates |

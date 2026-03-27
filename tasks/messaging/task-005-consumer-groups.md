@@ -113,3 +113,50 @@ What happens if you add a 7th consumer to a 6-partition topic?
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+graph TD
+    subgraph Topic["Topic: email-events (3 partitions)"]
+        P0["Partition 0"]
+        P1["Partition 1"]
+        P2["Partition 2"]
+    end
+
+    subgraph Before["Before Rebalance\n(2 consumers)"]
+        B1["Consumer 1\n← P0, P1"]
+        B2["Consumer 2\n← P2"]
+    end
+
+    P0 & P1 --> B1
+    P2 --> B2
+
+    B1 & B2 -->|Consumer 3 joins group| RB["⚡ Rebalance Triggered"]
+
+    subgraph After["After Rebalance\n(3 consumers)"]
+        A1["Consumer 1\n← P0"]
+        A2["Consumer 2\n← P1"]
+        A3["Consumer 3\n← P2"]
+    end
+
+    RB --> A1
+    RB --> A2
+    RB --> A3
+
+    A1 & A2 & A3 -->|monitor| LAG["📊 Consumer Lag\nDashboard"]
+```
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Kafka on Kubernetes | [`automation/ansible/roles/kubernetes/`](../../automation/ansible/roles/kubernetes/) | Deploy scaled consumer group deployments via Kubernetes with HPA support |
+| Consumer Lag Dashboards | [`automation/ansible/roles/monitoring/`](../../automation/ansible/roles/monitoring/) | Grafana dashboards and Prometheus alerts for consumer group lag monitoring |

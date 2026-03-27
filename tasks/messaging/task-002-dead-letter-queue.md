@@ -136,3 +136,42 @@ docker exec -i kafka kafka-console-producer \
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+flowchart TD
+    P["Producer\n(Notes Service)"] -->|publish| MT["email-events\n(Main Topic)"]
+    MT --> C["Consumer\n(Email Service)"]
+
+    C -->|success| OK["✅ Message Processed\n(Email Sent)"]
+    C -->|exception| RQ{"Retry\nCount < MAX?"}
+
+    RQ -->|yes| RT["email-events-retry-1\n(Retry Topic)"]
+    RT --> RC["Retry Consumer\n(delay: 10s)"]
+    RC -->|still fails| RQ2{"Retry\nCount < MAX?"}
+    RQ2 -->|yes| RT2["email-events-retry-2\n(Retry Topic)"]
+    RT2 --> RC2["Retry Consumer\n(delay: 60s)"]
+    RC2 -->|still fails| DLQ
+
+    RQ -->|no — max retries reached| DLQ["email-events-dlq\n(Dead Letter Queue)"]
+    RQ2 -->|no| DLQ
+
+    DLQ --> MON["🔔 DLQ Monitor\n(Alert / Dashboard)"]
+    MON -->|operator fixes & replays| MT
+```
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Kafka on Kubernetes | [`automation/ansible/roles/kubernetes/`](../../automation/ansible/roles/kubernetes/) | Deploy Kafka with retry/DLQ topic configuration via Helm or Strimzi |
+| Kafka via Docker | [`automation/ansible/roles/docker/`](../../automation/ansible/roles/docker/) | Run Kafka locally with Docker Compose including retry topic setup |
+| DLQ Alerting | [`automation/ansible/roles/monitoring/`](../../automation/ansible/roles/monitoring/) | Prometheus alert rules and Grafana dashboard panels for DLQ depth |

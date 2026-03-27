@@ -153,3 +153,52 @@ while True:
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+graph LR
+    PA["Producer A\n(user-111 events)"]
+    PB["Producer B\n(user-222 events)"]
+    PC["Producer C\n(user-333 events)"]
+
+    PA -->|key=user-111| P0
+    PB -->|key=user-222| P1
+    PC -->|key=user-333| P2
+    PA -->|key=user-444| P2
+    PB -->|key=user-555| P0
+
+    subgraph T["Topic: note-events (3 partitions)"]
+        P0["Partition 0\n[user-111, user-555, ...]"]
+        P1["Partition 1\n[user-222, ...]"]
+        P2["Partition 2\n[user-333, user-444, ...]"]
+    end
+
+    subgraph CG["Consumer Group: notes-processor"]
+        C0["Consumer 0\n← Partition 0"]
+        C1["Consumer 1\n← Partition 1"]
+        C2["Consumer 2\n← Partition 2"]
+    end
+
+    P0 --> C0
+    P1 --> C1
+    P2 --> C2
+
+    C0 -->|ordered per user| OUT["✅ In-order processing\nper userId"]
+    C1 --> OUT
+    C2 --> OUT
+```
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Kafka on Kubernetes | [`automation/ansible/roles/kubernetes/`](../../automation/ansible/roles/kubernetes/) | Helm-based Kafka deployment with configurable partition counts per topic |
+| Kafka via Docker | [`automation/ansible/roles/docker/`](../../automation/ansible/roles/docker/) | Docker Compose setup for local Kafka with multi-partition topic creation |
