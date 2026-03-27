@@ -24,11 +24,12 @@ graph TB
         AG["API Gateway"]
     end
 
-    subgraph Services["⚙️ Microservices"]
-        Auth["Auth Service<br/>(Go)"]
-        Notes["Notes Service<br/>(Go)"]
-        Email["Email Service<br/>(Python)"]
-        Search["Search Service<br/>(TypeScript)"]
+    subgraph Services["⚙️ Microservices (Nx Monorepo — Node.js/TypeScript + Go)"]
+        Auth["Auth Service<br/>(Go / Node.js)"]
+        Notes["Notes Service<br/>(Go / Node.js)"]
+        Email["Email Service<br/>(Python / Node.js)"]
+        Search["Search Service<br/>(TypeScript — Nx)"]
+        NxNote["📦 Nx Workspace<br/>(Node.js services share<br/>libs/shared/types+auth+kafka)"]
     end
 
     subgraph Messaging["📨 Event Streaming"]

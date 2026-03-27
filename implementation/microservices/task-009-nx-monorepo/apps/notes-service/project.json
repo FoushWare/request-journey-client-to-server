@@ -1,0 +1,48 @@
+{
+  "name": "notes-service",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/notes-service/src",
+  "projectType": "application",
+  "tags": ["type:app", "scope:notes"],
+  "targets": {
+    "build": {
+      "executor": "@nx/node:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/notes-service",
+        "main": "apps/notes-service/src/main.ts",
+        "tsConfig": "apps/notes-service/tsconfig.app.json",
+        "assets": []
+      },
+      "configurations": {
+        "development": { "sourceMap": true },
+        "production": { "sourceMap": false }
+      }
+    },
+    "serve": {
+      "executor": "@nx/node:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "notes-service:build",
+        "port": 3334
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/notes-service"],
+      "options": { "jestConfig": "apps/notes-service/jest.config.ts" }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": { "lintFilePatterns": ["apps/notes-service/**/*.ts"] }
+    },
+    "docker-build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker build -f apps/notes-service/Dockerfile -t notes-app/notes-service:{args.tag} .",
+        "cwd": "{workspaceRoot}"
+      }
+    }
+  }
+}
