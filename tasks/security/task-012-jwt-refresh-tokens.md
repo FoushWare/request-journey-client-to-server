@@ -70,3 +70,44 @@ When a token is used:
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant S as Server
+    participant DB as Token Store (DB)
+
+    C->>S: POST /login
+    S->>DB: Store refresh token (hashed)
+    S-->>C: access_token (15 min) + refresh_token (7 days)
+
+    Note over C,S: Access token expires
+    C->>S: POST /token/refresh (refresh_token)
+    S->>DB: Validate refresh token
+    DB-->>S: Valid — rotate
+    S->>DB: Invalidate old token, store new token
+    S-->>C: New access_token + new refresh_token
+
+    Note over C,S: Theft detected (token reuse)
+    C->>S: POST /token/refresh (stolen old token)
+    S->>DB: Token already invalidated!
+    S->>DB: Revoke entire token family
+    S-->>C: 401 Unauthorised — full re-login required
+```
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Security Role | [`automation/ansible/roles/security/`](../../automation/ansible/roles/security/) | Configures secure token handling, HTTPS enforcement, and security headers |
+| RDS Module | [`automation/terraform/modules/rds/`](../../automation/terraform/modules/rds/) | PostgreSQL used to persist refresh token records and token family state |
+| KMS Module | [`automation/terraform/modules/kms/`](../../automation/terraform/modules/kms/) | KMS customer-managed key for signing JWT tokens in production |

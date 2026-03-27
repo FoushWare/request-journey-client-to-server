@@ -177,3 +177,34 @@ func (s *EmailService) processEmailEvent(msg *kafka.Message) {
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+sequenceDiagram
+    participant NS as Notes Service
+    participant K as Kafka Topic
+    participant ES as Email Service
+    participant MH as Mailhog
+    participant Dev as Developer Inbox
+
+    NS->>K: Publish email.send event
+    K-->>ES: Consume event
+    ES->>MH: SMTP send (to, subject, body)
+    MH-->>Dev: Email visible in Mailhog UI
+```
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Notes App Role | [`automation/ansible/roles/notes-app/`](../../automation/ansible/roles/notes-app/) | Deploys the Notes Service that publishes email events |
+| Kubernetes Role | [`automation/ansible/roles/kubernetes/`](../../automation/ansible/roles/kubernetes/) | Configures Kubernetes to run the Email Service as a separate deployment |
+| Docker Role | [`automation/ansible/roles/docker/`](../../automation/ansible/roles/docker/) | Sets up Docker used to run Mailhog and Kafka locally |

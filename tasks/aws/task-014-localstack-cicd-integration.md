@@ -115,3 +115,35 @@ test('should upload and retrieve a note attachment', async () => {
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+sequenceDiagram
+    participant GHA as GitHub Actions
+    participant LS as LocalStack
+    participant Tests as Test Suite
+
+    GHA->>LS: Start LocalStack container
+    LS-->>GHA: Ready (healthcheck passes)
+    GHA->>Tests: Run integration tests
+    Tests->>LS: AWS SDK calls (S3, SQS, Lambda)
+    LS-->>Tests: Emulated responses
+    Tests-->>GHA: Pass / Fail results
+    GHA->>LS: Teardown container
+```
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Docker Role | [`automation/ansible/roles/docker/`](../../automation/ansible/roles/docker/) | Installs Docker on CI runners or self-hosted agents |
+| ECR Module | [`automation/terraform/modules/ecr/`](../../automation/terraform/modules/ecr/) | Container registry for pushing images built in the CI pipeline |
+| IAM Module | [`automation/terraform/modules/iam/`](../../automation/terraform/modules/iam/) | IAM credentials used by CI to push to ECR and access AWS resources |

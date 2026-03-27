@@ -123,3 +123,16 @@ Create Level 1 and Level 2 diagrams using Mermaid.
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| EKS Cluster | [`automation/terraform/modules/eks/`](../../automation/terraform/modules/eks/) | The EKS cluster being diagrammed — review module to understand actual topology |
+| VPC Networking | [`automation/terraform/modules/vpc/`](../../automation/terraform/modules/vpc/) | VPC, subnets, and routing that underpin the architecture diagrams |
+| S3 Bucket | [`automation/terraform/modules/s3/`](../../automation/terraform/modules/s3/) | Store exported diagram files (PNG, SVG) in a versioned S3 bucket |

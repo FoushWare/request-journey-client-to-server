@@ -90,3 +90,30 @@ An attacker's site can't read the CSRF cookie (same-origin policy) so can't incl
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+flowchart TD
+    A[Attacker page triggers cross-origin request] --> B{SameSite=Strict cookie policy}
+    B -->|Cookie NOT sent — blocked| Z[Request rejected ✗]
+    B -->|Cookie sent e.g. SameSite=None| C{Double Submit Cookie check}
+    C -->|CSRF token in header matches cookie| D[Request accepted ✓]
+    C -->|Token missing or mismatch| Z
+    D --> E[Server processes valid request]
+```
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Security Role | [`automation/ansible/roles/security/`](../../automation/ansible/roles/security/) | Configures SameSite cookie policy, CSRF middleware, and security headers |
+| EKS Module | [`automation/terraform/modules/eks/`](../../automation/terraform/modules/eks/) | Kubernetes ingress controller enforcing HTTPS (required for Secure cookies) |
+| ACM Module | [`automation/terraform/modules/acm/`](../../automation/terraform/modules/acm/) | SSL/TLS certificate provisioned so cookies can be set with Secure flag |

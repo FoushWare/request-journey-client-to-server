@@ -101,3 +101,32 @@ Free tier covers most learning use cases.
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+graph TD
+    LS[LocalStack Container]
+    LS -->|emulates| Lam[Lambda]
+    LS -->|emulates| DDB[DynamoDB]
+    LS -->|emulates| SM[Secrets Manager]
+    SM -->|uses| KMS[KMS Key]
+    NotesApp[Notes App] -->|invoke| Lam
+    NotesApp -->|read/write| DDB
+    NotesApp -->|fetch secret| SM
+```
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Docker Role | [`automation/ansible/roles/docker/`](../../automation/ansible/roles/docker/) | Installs Docker used to run the LocalStack container |
+| IAM Module | [`automation/terraform/modules/iam/`](../../automation/terraform/modules/iam/) | IAM execution roles for Lambda and access policies for DynamoDB |
+| KMS Module | [`automation/terraform/modules/kms/`](../../automation/terraform/modules/kms/) | KMS customer-managed key backing Secrets Manager in production |

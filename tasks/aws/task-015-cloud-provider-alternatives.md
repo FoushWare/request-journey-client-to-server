@@ -166,3 +166,50 @@ az group delete --name notes-app-rg --yes
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+graph TD
+    subgraph AWS
+        EC2[EC2 — Compute]
+        S3A[S3 — Storage]
+        EKS[EKS — Kubernetes]
+        RDSA[RDS — Managed DB]
+    end
+    subgraph DigitalOcean
+        Droplet[Droplets — Compute]
+        Spaces[Spaces — Storage]
+        DOKS[DOKS — Kubernetes]
+        DOPG[Managed PostgreSQL]
+    end
+    subgraph Azure
+        VM[Virtual Machines]
+        Blob[Blob Storage]
+        AKS[AKS — Kubernetes]
+        AzSQL[Azure Database]
+    end
+    EC2 -.equivalent.- Droplet
+    Droplet -.equivalent.- VM
+    S3A -.equivalent.- Spaces
+    Spaces -.equivalent.- Blob
+    EKS -.equivalent.- DOKS
+    DOKS -.equivalent.- AKS
+    RDSA -.equivalent.- DOPG
+    DOPG -.equivalent.- AzSQL
+```
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| VPC Module | [`automation/terraform/modules/vpc/`](../../automation/terraform/modules/vpc/) | AWS VPC networking — equivalent concepts exist in all three providers |
+| EKS Module | [`automation/terraform/modules/eks/`](../../automation/terraform/modules/eks/) | AWS Kubernetes cluster — compare with DOKS (DigitalOcean) and AKS (Azure) |
+| RDS Module | [`automation/terraform/modules/rds/`](../../automation/terraform/modules/rds/) | AWS managed PostgreSQL — equivalent to DO Managed DB and Azure Database |

@@ -114,3 +114,31 @@ Create a Grafana dashboard showing:
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+flowchart LR
+    NS[Notes Service] -->|async publish| K[Kafka Topic]
+    K -->|consume| EC[Email Consumer]
+    EC -->|send| CB{Circuit Breaker}
+    CB -->|closed - OK| SMTP[Email Provider SMTP]
+    CB -->|open - failing| DLQ[Dead Letter Queue]
+    SMTP -->|success| EC
+    SMTP -->|failure| CB
+```
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Notes App Role | [`automation/ansible/roles/notes-app/`](../../automation/ansible/roles/notes-app/) | Deploys the Notes Service configured to publish async Kafka events |
+| Kubernetes Role | [`automation/ansible/roles/kubernetes/`](../../automation/ansible/roles/kubernetes/) | Manages deployments for Kafka, Email Consumer, and circuit-breaker config |
+| Monitoring Role | [`automation/ansible/roles/monitoring/`](../../automation/ansible/roles/monitoring/) | Grafana dashboard for circuit-breaker state, queue lag, and email error rates |

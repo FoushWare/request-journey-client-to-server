@@ -147,3 +147,31 @@ After each scaling solution, run k6 and record:
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+graph TD
+    LB[Load Balancer] --> R1[App Replica 1]
+    LB --> R2[App Replica 2]
+    LB --> R3[App Replica 3]
+    R1 & R2 & R3 -->|cache reads| Redis[(Redis Cache)]
+    R1 & R2 & R3 -->|writes| PGP[(PostgreSQL Primary)]
+    R1 & R2 & R3 -->|reads| PGR[(PostgreSQL Read Replica)]
+    PGP -->|replication| PGR
+```
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| ElastiCache (Redis) | [`automation/terraform/modules/elasticache/`](../../automation/terraform/modules/elasticache/) | Provisions the Redis cache cluster used to reduce database load |
+| RDS with Read Replica | [`automation/terraform/modules/rds/`](../../automation/terraform/modules/rds/) | PostgreSQL primary + read replica for horizontal read scaling |
+| EKS with HPA | [`automation/terraform/modules/eks/`](../../automation/terraform/modules/eks/) | Kubernetes cluster with Horizontal Pod Autoscaler for app replicas |

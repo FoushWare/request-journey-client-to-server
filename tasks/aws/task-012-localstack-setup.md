@@ -161,3 +161,29 @@ echo "LocalStack initialized successfully"
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+flowchart LR
+    Dev[Developer] -->|docker run| LS[LocalStack Container]
+    LS -->|emulates| S3[AWS S3]
+    LS -->|emulates| SQS[AWS SQS]
+    LS -->|emulates| Lambda[AWS Lambda]
+    NotesApp[Notes App] -->|AWS SDK calls| LS
+```
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Docker Role | [`automation/ansible/roles/docker/`](../../automation/ansible/roles/docker/) | Installs and configures Docker used to run LocalStack |
+| S3 Module | [`automation/terraform/modules/s3/`](../../automation/terraform/modules/s3/) | Real S3 bucket equivalent of the LocalStack-emulated bucket |
+| IAM Module | [`automation/terraform/modules/iam/`](../../automation/terraform/modules/iam/) | IAM roles/policies mirroring the permissions tested with LocalStack |

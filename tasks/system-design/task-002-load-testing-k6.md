@@ -144,3 +144,31 @@ Look for the first resource that hits 100%:
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+flowchart LR
+    K6[k6 Test Runner] -->|HTTP requests| API[Notes API]
+    API -->|queries| PG[(PostgreSQL)]
+    API -->|cache| Redis[(Redis)]
+    K6 -->|metrics| Prom[Prometheus]
+    Prom -->|visualise| Grafana[Grafana Dashboard]
+    PG -->|slow query alerts| Prom
+    Redis -->|hit/miss metrics| Prom
+```
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Monitoring Stack | [`automation/ansible/roles/monitoring/`](../../automation/ansible/roles/monitoring/) | Deploys Prometheus and Grafana for capturing k6 metrics |
+| Notes App | [`automation/ansible/roles/notes-app/`](../../automation/ansible/roles/notes-app/) | Deploys the target Notes API under load test |
+| EKS Cluster | [`automation/terraform/modules/eks/`](../../automation/terraform/modules/eks/) | Kubernetes cluster that hosts the Notes API and monitoring stack |

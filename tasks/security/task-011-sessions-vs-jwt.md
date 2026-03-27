@@ -221,3 +221,45 @@ Apply different auth to different entry points:
 ---
 
 **Task Status:** [ ] Not Started | [ ] In Progress | [ ] Completed
+
+---
+
+## Diagram
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant S as Server
+    participant SS as Session Store (Redis/DB)
+
+    Note over C,SS: 1 — Server Session
+    C->>S: POST /login (credentials)
+    S->>SS: Store session data
+    SS-->>S: session_id
+    S-->>C: Set-Cookie: session_id
+
+    Note over C,S: 2 — JWT (Stateless)
+    C->>S: POST /login (credentials)
+    S-->>C: JWT access token (signed, no server state)
+    C->>S: GET /api (Authorization: Bearer <jwt>)
+    S-->>C: Validated from signature alone
+
+    Note over C,S: 3 — HttpOnly Cookie
+    C->>S: POST /login (credentials)
+    S-->>C: Set-Cookie: token=<jwt>; HttpOnly; SameSite=Strict
+    C->>S: GET /api (cookie sent automatically, JS cannot read it)
+    S-->>C: Response
+```
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Security Role | [`automation/ansible/roles/security/`](../../automation/ansible/roles/security/) | Hardens the server and configures secure session/cookie settings |
+| RDS Module | [`automation/terraform/modules/rds/`](../../automation/terraform/modules/rds/) | PostgreSQL used as a persistent server-side session store |
+| ElastiCache Module | [`automation/terraform/modules/elasticache/`](../../automation/terraform/modules/elasticache/) | Redis used as a high-speed session store or JWT blacklist |
