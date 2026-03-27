@@ -5,7 +5,11 @@
 **Prerequisites:** task-003-scaling-solutions  
 **Estimated Time:** 3 hours  
 **Language:** Go, Python, or TypeScript  
-**Notes App Context:** Implement multi-layer caching for the Notes App
+**Notes App Context:** Implement multi-layer caching for the Notes App  
+**Automation Reference:** [`automation/terraform/modules/elasticache/`](../../automation/terraform/modules/elasticache/) · [`automation/ansible/roles/notes-app/`](../../automation/ansible/roles/notes-app/)
+
+> 💡 **Manual vs Automated**: This task teaches caching step-by-step manually.  
+> `automation/terraform/modules/elasticache/` provisions the production Redis cluster automatically.
 
 ---
 
@@ -16,6 +20,54 @@
 - Understand cache eviction policies
 - Handle cache invalidation correctly
 - Understand cache stampede problem and how to prevent it
+
+---
+
+## Architecture Diagram
+
+> Where caching sits in the Notes App request journey:
+
+```mermaid
+graph TB
+    Client["🌐 Client (Browser / Mobile)"]
+
+    subgraph EdgeCache["Edge Layer"]
+        BrowserCache["Browser Cache\n(Cache-Control, ETag)"]
+        CDN["CDN Cache\n(CloudFront / Cloudflare)"]
+    end
+
+    subgraph AppLayer["Application Layer"]
+        NGINX["NGINX\n(Reverse Proxy)"]
+        NotesSvc["Notes Service\n(GET /api/notes)"]
+    end
+
+    subgraph CacheLayer["Cache Layer ← focus of this task"]
+        Redis["Redis\n(cache-aside, 60s TTL)\nmax-memory-policy: allkeys-lru"]
+        LockKey["Redis Lock Key\n(cache stampede prevention)"]
+    end
+
+    subgraph DataLayer["Data Layer"]
+        PG[("PostgreSQL\n(source of truth)")]
+    end
+
+    Client --> BrowserCache
+    BrowserCache -->|"miss"| CDN
+    CDN -->|"miss"| NGINX
+    NGINX --> NotesSvc
+    NotesSvc -->|"1. GET cacheKey"| Redis
+    Redis -->|"hit → return"| NotesSvc
+    Redis -->|"miss"| LockKey
+    LockKey -->|"lock acquired"| PG
+    PG -->|"data"| Redis
+    Redis -->|"cached data"| NotesSvc
+    NotesSvc --> Client
+
+    style Redis fill:#ff9,stroke:#f90,stroke-width:3px
+    style LockKey fill:#ff9,stroke:#f90
+```
+
+**Full project diagram:** [docs/diagrams/00-big-picture.md](../docs/diagrams/00-big-picture.md)  
+**Related diagram:** [docs/diagrams/05-database-topology.md](../docs/diagrams/05-database-topology.md)
 
 ---
 
@@ -119,26 +171,36 @@ Problem: When the cache expires, 1000 concurrent requests all miss and hit the D
 Solution: **Probabilistic Early Expiration** or **Mutex Lock**
 
 ```typescript
-async function getNotesWithLock(userId: string) {
+const MAX_LOCK_RETRIES = 10;
+const LOCK_RETRY_DELAY_MS = 100;
+
+async function getNotesWithLock(userId: string): Promise<Note[]> {
   const cacheKey = `notes:user:${userId}`;
   const lockKey = `lock:${cacheKey}`;
-  
-  const cached = await redis.get(cacheKey);
-  if (cached) return JSON.parse(cached);
-  
-  // Try to acquire lock (SET NX = set if not exists)
-  const lockAcquired = await redis.set(lockKey, '1', 'NX', 'EX', 5);
-  if (!lockAcquired) {
-    // Wait for the lock holder to populate cache
-    await sleep(100);
-    return getNotesWithLock(userId);
+
+  for (let attempt = 0; attempt < MAX_LOCK_RETRIES; attempt++) {
+    const cached = await redis.get(cacheKey);
+    if (cached) return JSON.parse(cached);
+
+    // Try to acquire lock (SET NX = set if not exists, EX = expire in 5s)
+    const lockAcquired = await redis.set(lockKey, '1', 'NX', 'EX', 5);
+    if (lockAcquired) {
+      try {
+        // Fetch from DB and populate cache
+        const notes = await db.query('SELECT * FROM notes WHERE user_id = $1', [userId]);
+        await redis.setex(cacheKey, 60, JSON.stringify(notes));
+        return notes;
+      } finally {
+        await redis.del(lockKey);
+      }
+    }
+
+    // Another process holds the lock — wait before retrying
+    await sleep(LOCK_RETRY_DELAY_MS);
   }
-  
-  // Fetch from DB and populate cache
-  const notes = await db.query('...', [userId]);
-  await redis.setex(cacheKey, 60, JSON.stringify(notes));
-  await redis.del(lockKey);
-  
+
+  // Exceeded retries: fall through to DB to avoid complete failure
+  const notes = await db.query('SELECT * FROM notes WHERE user_id = $1', [userId]);
   return notes;
 }
 ```
@@ -161,6 +223,21 @@ Add a Grafana panel showing:
 - [ ] Cache stampede prevention implemented
 - [ ] Cache hit rate monitored in Grafana
 - [ ] Eviction policy set (LRU)
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you caching by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Redis / ElastiCache cluster | [`automation/terraform/modules/elasticache/`](../../automation/terraform/modules/elasticache/) | Provisions AWS ElastiCache (Redis) with replication, encryption, and parameter groups |
+| App deployment with Redis env vars | [`automation/ansible/roles/notes-app/`](../../automation/ansible/roles/notes-app/) | Injects `REDIS_URL` into the Notes App deployment |
+| Monitoring (cache hit rate) | [`automation/ansible/roles/monitoring/`](../../automation/ansible/roles/monitoring/) | Deploys kube-prometheus-stack; add a Redis exporter to expose cache metrics |
+
+> 💡 Complete this task manually first. Then read the automation code to see how ElastiCache is configured in production (multi-AZ, auth tokens, encryption at rest).
 
 ---
 
