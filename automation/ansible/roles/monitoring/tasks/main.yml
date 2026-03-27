@@ -2,6 +2,16 @@
 # roles/monitoring/tasks/main.yml
 # Deploys Prometheus + Grafana + AlertManager via Helm (kube-prometheus-stack)
 
+- name: Validate required variables
+  ansible.builtin.assert:
+    that:
+      - grafana_admin_password | length > 0
+    fail_msg: >
+      grafana_admin_password is not set.
+      Provide it via: ansible-playbook --extra-vars "@secrets.yml"
+      where secrets.yml is encrypted with ansible-vault.
+    success_msg: "grafana_admin_password is set."
+
 - name: Create monitoring namespace
   kubernetes.core.k8s:
     name: "{{ k8s_monitoring_namespace }}"

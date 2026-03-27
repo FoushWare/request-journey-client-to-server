@@ -5,8 +5,8 @@
 - name: Update all packages to latest
   ansible.builtin.package:
     name: "*"
-    state: latest
-  when: security_auto_update
+    state: "{{ 'latest' if security_auto_update else 'present' }}"
+  when: security_auto_update | bool
 
 # ─────────────────────────────────────────────────────────────
 # SSH Hardening
