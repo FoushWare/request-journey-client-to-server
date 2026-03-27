@@ -10,7 +10,6 @@ Provisions the complete AWS infrastructure for the Notes App on EKS.
 | **EKS** | Kubernetes cluster with 2 managed node groups |
 | **RDS** | PostgreSQL Multi-AZ for the Auth Service |
 | **ElastiCache** | Redis cluster for caching and sessions |
-| **DocumentDB** | MongoDB-compatible for the Notes Service |
 | **S3** | 3 buckets: uploads, assets, backups |
 | **ECR** | Container registry for Docker images |
 | **IAM** | Roles per service (IRSA) |
