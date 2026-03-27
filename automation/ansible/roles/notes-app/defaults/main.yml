@@ -1,0 +1,6 @@
+---
+# roles/notes-app/defaults/main.yml
+
+notes_app_version: latest
+auth_service_role_arn: ""
+notes_service_role_arn: ""

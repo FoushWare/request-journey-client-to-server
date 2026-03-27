@@ -1,0 +1,179 @@
+---
+# roles/security/tasks/main.yml
+# Hardens Linux hosts: firewall, fail2ban, SSH, audit logging, OS updates
+
+- name: Update all packages to latest
+  ansible.builtin.package:
+    name: "*"
+    state: latest
+  when: security_auto_update
+
+# ─────────────────────────────────────────────────────────────
+# SSH Hardening
+# ─────────────────────────────────────────────────────────────
+- name: Harden SSH configuration
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+    backup: true
+  loop:
+    - { regexp: "^#?PermitRootLogin", line: "PermitRootLogin no" }
+    - { regexp: "^#?PasswordAuthentication", line: "PasswordAuthentication no" }
+    - { regexp: "^#?ChallengeResponseAuthentication", line: "ChallengeResponseAuthentication no" }
+    - { regexp: "^#?X11Forwarding", line: "X11Forwarding no" }
+    - { regexp: "^#?MaxAuthTries", line: "MaxAuthTries 3" }
+    - { regexp: "^#?LoginGraceTime", line: "LoginGraceTime 20" }
+    - { regexp: "^#?ClientAliveInterval", line: "ClientAliveInterval 300" }
+    - { regexp: "^#?ClientAliveCountMax", line: "ClientAliveCountMax 2" }
+    - { regexp: "^#?AllowTcpForwarding", line: "AllowTcpForwarding no" }
+  notify: Restart SSH
+
+# ─────────────────────────────────────────────────────────────
+# Firewall (firewalld / ufw)
+# ─────────────────────────────────────────────────────────────
+- name: Install and configure firewalld (RHEL)
+  when: ansible_os_family == "RedHat"
+  block:
+    - name: Install firewalld
+      ansible.builtin.yum:
+        name: firewalld
+        state: present
+
+    - name: Start firewalld
+      ansible.builtin.systemd:
+        name: firewalld
+        state: started
+        enabled: true
+
+    - name: Allow SSH
+      ansible.posix.firewalld:
+        service: ssh
+        permanent: true
+        state: enabled
+        immediate: true
+
+    - name: Allow HTTPS
+      ansible.posix.firewalld:
+        service: https
+        permanent: true
+        state: enabled
+        immediate: true
+
+    - name: Allow Kubernetes API
+      ansible.posix.firewalld:
+        port: "6443/tcp"
+        permanent: true
+        state: enabled
+        immediate: true
+
+- name: Configure ufw (Debian/Ubuntu)
+  when: ansible_os_family == "Debian"
+  block:
+    - name: Install ufw
+      ansible.builtin.apt:
+        name: ufw
+        state: present
+
+    - name: Allow SSH
+      community.general.ufw:
+        rule: allow
+        port: "22"
+        proto: tcp
+
+    - name: Allow HTTPS
+      community.general.ufw:
+        rule: allow
+        port: "443"
+        proto: tcp
+
+    - name: Enable ufw
+      community.general.ufw:
+        state: enabled
+
+# ─────────────────────────────────────────────────────────────
+# Fail2ban (brute force protection)
+# ─────────────────────────────────────────────────────────────
+- name: Install fail2ban
+  ansible.builtin.package:
+    name: fail2ban
+    state: present
+
+- name: Configure fail2ban jail
+  ansible.builtin.copy:
+    content: |
+      [DEFAULT]
+      bantime  = 3600
+      findtime = 600
+      maxretry = 5
+
+      [sshd]
+      enabled = true
+      port    = ssh
+      logpath = %(sshd_log)s
+      backend = %(sshd_backend)s
+    dest: /etc/fail2ban/jail.local
+    mode: "0644"
+  notify: Restart fail2ban
+
+- name: Start fail2ban
+  ansible.builtin.systemd:
+    name: fail2ban
+    state: started
+    enabled: true
+
+# ─────────────────────────────────────────────────────────────
+# Audit Logging
+# ─────────────────────────────────────────────────────────────
+- name: Install auditd
+  ansible.builtin.package:
+    name: audit
+    state: present
+
+- name: Configure audit rules
+  ansible.builtin.copy:
+    content: |
+      # Track authentication events
+      -w /etc/passwd -p wa -k identity
+      -w /etc/shadow -p wa -k identity
+      -w /etc/group -p wa -k identity
+      -w /etc/sudoers -p wa -k privilege
+
+      # Track system call activity
+      -a always,exit -F arch=b64 -S execve -k exec
+      -a always,exit -F arch=b64 -S open,openat -F exit=-EPERM -k access-denied
+
+      # Track network connections
+      -a always,exit -F arch=b64 -S connect -k network
+
+      # Make rules immutable (must reboot to change)
+      -e 2
+    dest: /etc/audit/rules.d/notes-app.rules
+    mode: "0640"
+  notify: Restart auditd
+
+- name: Start auditd
+  ansible.builtin.systemd:
+    name: auditd
+    state: started
+    enabled: true
+
+# ─────────────────────────────────────────────────────────────
+# Kernel Hardening (sysctl)
+# ─────────────────────────────────────────────────────────────
+- name: Apply kernel hardening via sysctl
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    sysctl_file: /etc/sysctl.d/99-notes-app-hardening.conf
+    reload: true
+  loop:
+    - { name: "net.ipv4.ip_forward", value: "1" }  # Required for K8s
+    - { name: "net.bridge.bridge-nf-call-iptables", value: "1" }  # Required for K8s
+    - { name: "net.ipv4.conf.all.rp_filter", value: "1" }
+    - { name: "net.ipv4.conf.default.rp_filter", value: "1" }
+    - { name: "net.ipv4.tcp_syncookies", value: "1" }
+    - { name: "net.ipv4.icmp_echo_ignore_broadcasts", value: "1" }
+    - { name: "kernel.randomize_va_space", value: "2" }
+    - { name: "fs.suid_dumpable", value: "0" }

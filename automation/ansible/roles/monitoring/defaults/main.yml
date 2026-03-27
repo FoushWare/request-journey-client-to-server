@@ -1,0 +1,6 @@
+---
+# roles/monitoring/defaults/main.yml
+
+grafana_admin_password: "changeme-in-vault"
+slack_webhook_url: ""
+pagerduty_service_key: ""
