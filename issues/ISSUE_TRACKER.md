@@ -145,6 +145,10 @@ This file tracks all GitHub issues that have been processed and converted into s
 | #156 | Simulate the issue of dead letter queue in Kafka | OPEN | 2026-03 | **2026-03-27** | `tasks/messaging/` |
 | #157 | User partitions in kafka topics | OPEN | 2026-03 | **2026-03-27** | `tasks/messaging/` |
 | #158 | Learn more about zookeeper for distributed systems | OPEN | 2026-03 | **2026-03-27** | `tasks/distributed-systems/` |
+| #159 | PR: Add Mermaid diagrams and fix missing refs | CLOSED | 2026-03 | 2026-03-27 | PR |
+| #160 | Microservices Decomposition | OPEN | 2026-03 | **2026-03-29** | `tasks/microservices/` |
+| #161 | Monolith-First then Convert to Microservices | OPEN | 2026-03 | **2026-03-29** | `tasks/microservices/` |
+| #162 | Sidecar Pattern for Shared Logic | OPEN | 2026-03 | **2026-03-29** | `tasks/microservices/` |
 
 ---
 
@@ -158,7 +162,7 @@ This file tracks all GitHub issues that have been processed and converted into s
 
 ## Summary
 
-- **Total issues on GitHub**: 158
-- **Total processed**: 127 (issues #32–#158, excluding #1–#31)
-- **New batch this session**: #148–#158 (11 issues)
-- **Last sync date**: 2026-03-27
+- **Total issues on GitHub**: 162
+- **Total processed**: 130 (issues #32–#162, excluding #1–#31)
+- **New batch this session**: #160–#162 (3 issues)
+- **Last sync date**: 2026-03-29
