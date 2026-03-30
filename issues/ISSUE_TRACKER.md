@@ -149,6 +149,7 @@ This file tracks all GitHub issues that have been processed and converted into s
 | #160 | Microservices Decomposition | OPEN | 2026-03 | **2026-03-29** | `tasks/microservices/` |
 | #161 | Monolith-First then Convert to Microservices | OPEN | 2026-03 | **2026-03-29** | `tasks/microservices/` |
 | #162 | Sidecar Pattern for Shared Logic | OPEN | 2026-03 | **2026-03-29** | `tasks/microservices/` |
+| #163 | Pipeline Gating: CI Must Pass Before CD Deploys | OPEN | 2026-03 | **2026-03-30** | `tasks/ci-cd/` |
 
 ---
 
@@ -162,7 +163,7 @@ This file tracks all GitHub issues that have been processed and converted into s
 
 ## Summary
 
-- **Total issues on GitHub**: 162
-- **Total processed**: 130 (issues #32–#162, excluding #1–#31)
-- **New batch this session**: #160–#162 (3 issues)
-- **Last sync date**: 2026-03-29
+- **Total issues on GitHub**: 163
+- **Total processed**: 131 (issues #32–#163, excluding #1–#31)
+- **New batch this session**: #163 (1 issue)
+- **Last sync date**: 2026-03-30
