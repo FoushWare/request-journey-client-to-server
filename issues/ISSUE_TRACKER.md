@@ -154,6 +154,7 @@ This file tracks all GitHub issues that have been processed and converted into s
 | #165 | Testing Microservices (Unit, Integration, E2E, Contract, Production) | OPEN | 2026-03 | **2026-04-01** | `tasks/microservices/` |
 | #166 | Three Pillars of Observability (Logs, Metrics, Distributed Tracing) | OPEN | 2026-03 | **2026-04-01** | `tasks/logging/` |
 | #167 | Deploy Microservices to Cloud (EC2, EKS, GCP, Azure) | OPEN | 2026-04 | **2026-04-01** | `tasks/kubernetes/` |
+| #168 | Serverless Deployment (Lambda / Cloud Functions / Azure Functions) | OPEN | 2026-04 | **2026-04-01** | `tasks/aws/` |
 
 ---
 
@@ -167,7 +168,7 @@ This file tracks all GitHub issues that have been processed and converted into s
 
 ## Summary
 
-- **Total issues on GitHub**: 167
-- **Total processed**: 135 (issues #32–#167, excluding #1–#31)
-- **New batch this session**: #167 (1 issue)
+- **Total issues on GitHub**: 168
+- **Total processed**: 136 (issues #32–#168, excluding #1–#31)
+- **New batch this session**: #168 (1 issue)
 - **Last sync date**: 2026-04-01
