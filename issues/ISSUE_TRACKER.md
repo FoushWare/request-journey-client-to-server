@@ -153,6 +153,7 @@ This file tracks all GitHub issues that have been processed and converted into s
 | #164 | CQRS and Event Sourcing Patterns | OPEN | 2026-03 | **2026-04-01** | `tasks/microservices/` |
 | #165 | Testing Microservices (Unit, Integration, E2E, Contract, Production) | OPEN | 2026-03 | **2026-04-01** | `tasks/microservices/` |
 | #166 | Three Pillars of Observability (Logs, Metrics, Distributed Tracing) | OPEN | 2026-03 | **2026-04-01** | `tasks/logging/` |
+| #167 | Deploy Microservices to Cloud (EC2, EKS, GCP, Azure) | OPEN | 2026-04 | **2026-04-01** | `tasks/kubernetes/` |
 
 ---
 
@@ -166,7 +167,7 @@ This file tracks all GitHub issues that have been processed and converted into s
 
 ## Summary
 
-- **Total issues on GitHub**: 166
-- **Total processed**: 134 (issues #32–#166, excluding #1–#31)
-- **New batch this session**: #164–#166 (3 issues)
+- **Total issues on GitHub**: 167
+- **Total processed**: 135 (issues #32–#167, excluding #1–#31)
+- **New batch this session**: #167 (1 issue)
 - **Last sync date**: 2026-04-01
