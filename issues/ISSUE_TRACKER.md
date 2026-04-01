@@ -150,6 +150,9 @@ This file tracks all GitHub issues that have been processed and converted into s
 | #161 | Monolith-First then Convert to Microservices | OPEN | 2026-03 | **2026-03-29** | `tasks/microservices/` |
 | #162 | Sidecar Pattern for Shared Logic | OPEN | 2026-03 | **2026-03-29** | `tasks/microservices/` |
 | #163 | Pipeline Gating: CI Must Pass Before CD Deploys | OPEN | 2026-03 | **2026-03-30** | `tasks/ci-cd/` |
+| #164 | CQRS and Event Sourcing Patterns | OPEN | 2026-03 | **2026-04-01** | `tasks/microservices/` |
+| #165 | Testing Microservices (Unit, Integration, E2E, Contract, Production) | OPEN | 2026-03 | **2026-04-01** | `tasks/microservices/` |
+| #166 | Three Pillars of Observability (Logs, Metrics, Distributed Tracing) | OPEN | 2026-03 | **2026-04-01** | `tasks/logging/` |
 
 ---
 
@@ -163,7 +166,7 @@ This file tracks all GitHub issues that have been processed and converted into s
 
 ## Summary
 
-- **Total issues on GitHub**: 163
-- **Total processed**: 131 (issues #32–#163, excluding #1–#31)
-- **New batch this session**: #163 (1 issue)
-- **Last sync date**: 2026-03-30
+- **Total issues on GitHub**: 166
+- **Total processed**: 134 (issues #32–#166, excluding #1–#31)
+- **New batch this session**: #164–#166 (3 issues)
+- **Last sync date**: 2026-04-01
