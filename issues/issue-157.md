@@ -77,3 +77,33 @@ The Notes App's `note-events` topic will use `user_id` as the partition key:
 - All events for user B go to partition 2
 - This ensures events for a single user are processed in order
 - Set up 3 consumers processing the 3-partition topic in parallel
+
+---
+
+## Architecture Diagram
+
+> How Kafka partitions distribute note events across consumers:
+
+```mermaid
+graph TB
+    Notes["📝 Notes Service\n(producer, key=user_id)"]
+    subgraph Topic["note-events topic (3 partitions)"]
+        P0["📦 Partition 0\n(user A, C, E...)"]
+        P1["📦 Partition 1\n(user B, D, F...)"]
+        P2["📦 Partition 2\n(user G, H, I...)"]
+    end
+    C0["🔄 Consumer 0"]
+    C1["🔄 Consumer 1"]
+    C2["🔄 Consumer 2"]
+
+    Notes -->|hash(user_id)| P0
+    Notes -->|hash(user_id)| P1
+    Notes -->|hash(user_id)| P2
+    P0 --> C0
+    P1 --> C1
+    P2 --> C2
+
+    style P0 fill:#e8f5e9
+    style P1 fill:#e3f2fd
+    style P2 fill:#f3e5f5
+```

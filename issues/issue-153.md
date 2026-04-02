@@ -79,3 +79,35 @@ NGINX, Load Balancers, Kubernetes networking
 - **draw.io** (diagrams.net) — for rich visual diagrams
 - **Mermaid** — for code-based diagrams in markdown
 - **PlantUML** — for UML-style diagrams
+
+---
+
+## Architecture Diagram
+
+> The full Notes App architecture that needs to be diagrammed:
+
+```mermaid
+graph TB
+    Client["🌐 Browser / Mobile"]
+    Gateway["🚪 API Gateway\n(Nginx / Kong)"]
+    Auth["🔐 Auth Service"]
+    Notes["📝 Notes Service"]
+    Email["📧 Email Service"]
+    Search["🔍 Search Service"]
+    Kafka["📨 Kafka"]
+    DB["🗄️ PostgreSQL / MongoDB"]
+    Cache["⚡ Redis"]
+    S3["🪣 S3"]
+
+    Client --> Gateway
+    Gateway --> Auth
+    Gateway --> Notes
+    Notes --> Kafka
+    Kafka --> Email
+    Kafka --> Search
+    Notes --> DB
+    Notes --> Cache
+    Notes --> S3
+
+    style Gateway fill:#ff9,stroke:#f90
+```

@@ -57,3 +57,28 @@ The Notes App cluster (multi-instance setup) can simulate leader election:
 - One node is the leader that accepts writes
 - Followers replicate from the leader
 - If the leader dies, a new election occurs
+
+---
+
+## Architecture Diagram
+
+> Where Raft leader election fits in the Notes App cluster:
+
+```mermaid
+graph TB
+    Client["🌐 Client\n(write request)"]
+    subgraph Cluster["Notes App Cluster (Raft)"]
+        Leader["👑 Leader Node\n(accepts writes)"]
+        F1["📋 Follower 1\n(replicates log)"]
+        F2["📋 Follower 2\n(replicates log)"]
+    end
+    DB["🗄️ Replicated State\n(committed log entries)"]
+
+    Client -->|POST /notes| Leader
+    Leader -->|AppendEntries| F1
+    Leader -->|AppendEntries| F2
+    Leader --> DB
+
+    style Leader fill:#ff9,stroke:#f90
+    style Cluster fill:#e8f5e9
+```

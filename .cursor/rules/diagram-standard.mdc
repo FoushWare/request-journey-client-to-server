@@ -22,7 +22,7 @@ alwaysApply: true
 
 Add this section after the Theory section in every task:
 
-```markdown
+~~~~markdown
 ## Architecture Diagram
 
 > Where this component fits in the overall request journey:
@@ -35,9 +35,9 @@ graph TB
     %%  Highlight it with: style ComponentName fill:#ff9,stroke:#f90
 ```
 
-**Full project diagram:** [docs/diagrams/00-big-picture.md](../../docs/diagrams/00-big-picture.md)  
-**Related diagram:** [docs/diagrams/NN-name.md](../../docs/diagrams/NN-name.md)
-```
+**Full project diagram:** [docs/diagrams/00-big-picture.md](./diagrams/00-big-picture.md)  
+**Related diagram:** [docs/diagrams/NN-name.md](./diagrams/NN-name.md)
+~~~~
 
 ## When Adding a New Subsystem
 

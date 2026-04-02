@@ -39,9 +39,10 @@ Even though newer systems replace ZooKeeper, understanding it gives you deep ins
 
 ### Leader Election with ZooKeeper
 1. Each candidate creates an ephemeral sequential znode under `/election/`
-2. Each candidate watches the znode with the lowest sequence number
-3. If the lowest znode disappears (node died), the next one becomes leader
-4. This avoids the "herd effect" (all nodes waking up at once)
+2. Each candidate checks its own sequence number. If it holds the lowest number, it is the leader.
+3. Otherwise, each candidate watches **only the immediately preceding znode** (not the lowest)
+4. When the watched znode disappears (the node ahead died or left), the watcher re-runs the election check
+5. This avoids the **herd effect** — only one node wakes up per event, not all of them
 
 ### Watchers
 - Clients register watchers on znodes
@@ -81,3 +82,31 @@ Simulate ZooKeeper-based coordination for a multi-instance Notes API:
 - Use ZooKeeper to elect a "primary" node
 - Primary handles write traffic; secondaries handle reads
 - Kill the primary and watch ZooKeeper elect a new one
+
+---
+
+## Architecture Diagram
+
+> Where ZooKeeper leader election fits in the Notes App request journey:
+
+```mermaid
+graph TB
+    subgraph ZK["/election/ znodes (ZooKeeper)"]
+        Z1["🔢 n-0001 (Node A)\n→ lowest = Leader"]
+        Z2["🔢 n-0002 (Node B)\nwatches n-0001"]
+        Z3["🔢 n-0003 (Node C)\nwatches n-0002"]
+    end
+    NodeA["👑 Node A — Leader\n(accepts writes)"]
+    NodeB["📋 Node B — Follower\n(read traffic)"]
+    NodeC["📋 Node C — Follower\n(read traffic)"]
+    Client["🌐 Client"]
+
+    Z1 --> NodeA
+    Z2 --> NodeB
+    Z3 --> NodeC
+    Client -->|write| NodeA
+    Client -->|read| NodeB
+
+    style NodeA fill:#ff9,stroke:#f90
+    style ZK fill:#e8f5e9
+```

@@ -53,3 +53,29 @@ LocalStack allows testing the Notes App's AWS integrations locally:
 - Upload note attachments to local S3
 - Queue note events in local SQS
 - Test Lambda triggers locally
+
+
+---
+
+## Architecture Diagram
+
+> Where LocalStack fits in the request journey (local development):
+
+```mermaid
+graph TB
+    Dev["💻 Developer\n(local machine)"]
+    App["🌐 Notes App\n(Docker)"]
+    LocalStack["☁️ LocalStack\n(fake AWS on localhost:4566)"]
+    S3["🪣 S3 (local)\nnote attachments"]
+    SQS["📨 SQS (local)\nnote events"]
+    Lambda["λ Lambda (local)\ntriggers"]
+
+    Dev -->|develops| App
+    App -->|AWS SDK calls| LocalStack
+    LocalStack --> S3
+    LocalStack --> SQS
+    LocalStack --> Lambda
+
+    style LocalStack fill:#ff9,stroke:#f90
+    style Dev fill:#e1f5fe
+```

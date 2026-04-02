@@ -62,3 +62,28 @@ The Notes App will trigger email events through Kafka:
 - Password changed → security alert email
 
 The Email Service subscribes to the `email-events` Kafka topic and delivers emails.
+
+---
+
+## Architecture Diagram
+
+> Where the Email Service fits in the Notes App microservices:
+
+```mermaid
+graph TB
+    NotesAPI["🌐 Notes API"]
+    AuthSvc["🔐 Auth Service"]
+    Kafka["📨 Kafka\nemail-events topic"]
+    EmailSvc["📧 Email Service\n(new microservice)"]
+    Mailhog["🧪 Mailhog\n(local SMTP)"]
+    SES["☁️ AWS SES\n(production)"]
+
+    NotesAPI -->|user event| Kafka
+    AuthSvc -->|user event| Kafka
+    Kafka -->|consume| EmailSvc
+    EmailSvc -->|dev| Mailhog
+    EmailSvc -->|prod| SES
+
+    style EmailSvc fill:#ff9,stroke:#f90
+    style Kafka fill:#fff3e0,stroke:#e65100
+```

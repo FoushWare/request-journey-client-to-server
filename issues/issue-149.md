@@ -47,3 +47,27 @@ Add Digital Ocean or Microsoft Azure as an alternative cloud provider to practic
 - Digital Ocean offers a free credit on signup — good for hands-on practice
 - Azure also has a free tier with a 12-month benefit
 - This is an optional extension once the core AWS journey is complete
+
+---
+
+## Architecture Diagram
+
+> Where alternative cloud providers fit in the deployment layer:
+
+```mermaid
+graph TB
+    App["🌐 Notes App\n(containerised)"]
+    AWS["☁️ AWS\n(primary — EKS, RDS, S3)"]
+    DO["🌊 Digital Ocean\n(alternative — App Platform / K8s)"]
+    Azure["🔷 Microsoft Azure\n(alternative — AKS, Azure SQL)"]
+    DNS["🌍 DNS / Load Balancer"]
+
+    DNS --> App
+    App -->|deploy option 1| AWS
+    App -->|deploy option 2| DO
+    App -->|deploy option 3| Azure
+
+    style DO fill:#ff9,stroke:#f90
+    style Azure fill:#e3f2fd,stroke:#1565c0
+    style AWS fill:#fff3e0,stroke:#e65100
+```

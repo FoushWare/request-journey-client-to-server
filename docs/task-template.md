@@ -40,8 +40,8 @@ graph TB
     %%    style ComponentName fill:#ff9,stroke:#f90,stroke-width:3px
 ```
 
-**Full project diagram:** [docs/diagrams/00-big-picture.md](../../docs/diagrams/00-big-picture.md)  
-**Related standalone diagram:** [docs/diagrams/NN-name.md](../../docs/diagrams/NN-name.md)
+**Full project diagram:** [docs/diagrams/00-big-picture.md](./diagrams/00-big-picture.md)  
+**Related standalone diagram:** [docs/diagrams/NN-name.md](./diagrams/NN-name.md)
 
 ---
 

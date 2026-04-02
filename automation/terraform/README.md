@@ -48,7 +48,7 @@ terraform plan -out=tfplan
 terraform apply tfplan
 
 # Configure kubectl
-aws eks update-kubeconfig --name notes-app-cluster --region us-east-1
+aws eks update-kubeconfig --name notes-app-dev-cluster --region us-east-1
 
 # Destroy when done
 terraform destroy
@@ -80,7 +80,7 @@ aws dynamodb create-table \
 ## Environments
 
 ```bash
-# Development (LocalStack — free)
+# Development (real AWS — smallest instance sizes)
 terraform workspace new dev
 terraform apply -var-file=environments/dev.tfvars
 
@@ -95,16 +95,18 @@ terraform apply -var-file=environments/prod.tfvars
 
 ## Cost Estimate (us-east-1)
 
-| Resource | Dev (LocalStack) | Staging/month | Prod/month |
-|---------|-----------------|--------------|-----------|
-| EKS cluster | Free | ~$73 | ~$73 |
-| EC2 nodes (m5.large × 2) | Free | ~$140 | ~$280 (×4) |
-| RDS PostgreSQL (db.t3.medium) | Free | ~$60 | ~$250 |
-| ElastiCache Redis | Free | ~$25 | ~$100 |
-| S3 | Free | ~$5 | ~$20 |
-| **Total** | **Free** | **~$303** | **~$723** |
+> ⚠️ All workspaces (including `dev`) provision **real AWS resources** and incur AWS charges. Destroy resources when not in use.
 
-> 💡 Use the `dev` workspace with LocalStack to develop and test for free.
+| Resource | Dev/month | Staging/month | Prod/month |
+|---------|-----------|--------------|-----------|
+| EKS cluster | ~$73 | ~$73 | ~$73 |
+| EC2 nodes (m5.large × 2) | ~$140 | ~$140 | ~$280 (×4) |
+| RDS PostgreSQL (db.t3.medium) | ~$60 | ~$60 | ~$250 |
+| ElastiCache Redis | ~$25 | ~$25 | ~$100 |
+| S3 | ~$1 | ~$5 | ~$20 |
+| **Total** | **~$299** | **~$303** | **~$723** |
+
+> 💡 To experiment locally without AWS costs, see the [LocalStack section in automation/README.md](../README.md).
 
 ## Module Structure
 

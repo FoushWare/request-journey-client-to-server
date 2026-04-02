@@ -26,7 +26,6 @@ cp /path/to/this/tsconfig.base.json .
 | `apps/auth-service/project.json` | Auth service Nx project config |
 | `apps/notes-service/project.json` | Notes service Nx project config |
 | `libs/shared/types/project.json` | Shared types library Nx config |
-| `docker-compose.nx.yml` | Docker Compose that runs all Nx-built services |
 
 ## Architecture Diagram
 

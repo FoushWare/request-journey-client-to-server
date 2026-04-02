@@ -15,10 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@notes-app/shared/types": ["libs/shared/types/src/index.ts"],
-      "@notes-app/shared/auth": ["libs/shared/auth/src/index.ts"],
-      "@notes-app/shared/kafka": ["libs/shared/kafka/src/index.ts"],
-      "@notes-app/shared/config": ["libs/shared/config/src/index.ts"]
+      "@notes-app/shared/types": ["libs/shared/types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

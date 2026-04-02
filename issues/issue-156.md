@@ -71,3 +71,28 @@ The Email Service from issue #152 is a perfect candidate:
 - Simulate the Email Service crashing on certain messages
 - Observe messages moving to `email-events-dlq`
 - Implement replay and monitor
+
+---
+
+## Architecture Diagram
+
+> Where the Dead Letter Queue fits in the Kafka message flow:
+
+```mermaid
+graph TB
+    Producer["📤 Notes Service\n(producer)"]
+    Topic["📨 email-events\n(Kafka topic)"]
+    Consumer["📥 Email Service\n(consumer)"]
+    Retry["🔄 Retry Logic\n(max 3 attempts)"]
+    DLQ["☠️ email-events-dlq\n(Dead Letter Queue)"]
+    Alert["🔔 Alert / Dashboard\n(monitor poison messages)"]
+
+    Producer -->|publish message| Topic
+    Topic -->|consume| Consumer
+    Consumer -->|processing error| Retry
+    Retry -->|max retries exceeded| DLQ
+    DLQ --> Alert
+
+    style DLQ fill:#ffcdd2,stroke:#f44336
+    style Retry fill:#fff9c4
+```

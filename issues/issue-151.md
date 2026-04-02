@@ -60,3 +60,28 @@ The Notes App note-creation flow can be made durable with Restate:
 4. Update search index
 
 If any step fails, Restate retries only that step — not the whole flow.
+
+---
+
+## Architecture Diagram
+
+> Where Restate durable execution fits in the Notes App request journey:
+
+```mermaid
+graph TB
+    Client["📱 Client\nPOST /api/notes"]
+    Restate["⚙️ Restate Server\n(durable journal + retries)"]
+    Step1["🔐 Step 1: Validate User"]
+    Step2["📝 Step 2: Save Note"]
+    Step3["📧 Step 3: Send Email"]
+    Step4["🔍 Step 4: Update Search Index"]
+
+    Client -->|invoke workflow| Restate
+    Restate --> Step1
+    Step1 -->|ok| Step2
+    Step2 -->|ok| Step3
+    Step3 -->|ok| Step4
+
+    style Restate fill:#f3e5f5,stroke:#9c27b0
+    style Client fill:#e1f5fe
+```

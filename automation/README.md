@@ -70,8 +70,8 @@ Running application ✅
 ```bash
 cd automation/terraform
 
-# One-time: create Terraform state backend
-./scripts/setup-backend.sh
+# One-time: ensure Terraform remote state backend exists
+# (create the S3 bucket and DynamoDB table configured in versions.tf)
 
 # Initialize
 terraform init
@@ -127,22 +127,29 @@ kubectl get svc kube-prometheus-stack-grafana -n monitoring
 
 ---
 
-## LocalStack — Free Local Development
+## LocalStack (optional) — Limited Local Testing
 
-Use [LocalStack](https://localstack.cloud/) to test Terraform locally without AWS costs:
+You *can* use [LocalStack](https://localstack.cloud/) to experiment with a subset of AWS services locally, but there are important caveats:
+
+- This repository **does not** include a `docker-compose.localstack.yml` file.
+- The main Terraform configuration in `automation/terraform/` provisions AWS/EKS resources that LocalStack does **not** fully support.
+- You should **not** run the production/root Terraform modules (including EKS) directly against LocalStack.
+
+If you want to use LocalStack, you will need to:
+
+1. Create your own LocalStack Docker setup following the [official LocalStack documentation](https://docs.localstack.cloud/getting-started/).
+2. Create a **separate** Terraform configuration that only uses services supported by LocalStack (e.g., S3, SQS, DynamoDB), instead of the full EKS-focused stack in this repo.
+3. Point that LocalStack-specific Terraform configuration at your LocalStack endpoint:
 
 ```bash
-# Start LocalStack
-docker compose -f docker-compose.localstack.yml up -d
-
-# Apply Terraform with LocalStack endpoint
+# Example only: environment variables for a LocalStack-based Terraform config
 export AWS_ENDPOINT_URL=http://localhost:4566
 export AWS_DEFAULT_REGION=us-east-1
 export AWS_ACCESS_KEY_ID=test
 export AWS_SECRET_ACCESS_KEY=test
 
 terraform init -backend=false
-terraform apply -var-file=environments/dev.tfvars
+terraform apply
 ```
 
 ---

@@ -68,3 +68,30 @@ Authentication is one of the most misunderstood topics in web development:
 - The Notes App admin dashboard will use **server sessions with Redis**
 
 This creates a realistic multi-auth scenario within the same project.
+
+---
+
+## Architecture Diagram
+
+> Where each authentication mechanism fits in the Notes App request journey:
+
+```mermaid
+graph TB
+    WebBrowser["🌐 Web Browser\n(HttpOnly Cookie)"]
+    MobileApp["📱 Mobile App\n(JWT Bearer token)"]
+    AdminDash["🖥️ Admin Dashboard\n(Server Session + Redis)"]
+    Gateway["🚪 API Gateway"]
+    AuthSvc["🔐 Auth Service"]
+    Redis["⚡ Redis\n(session store)"]
+    Notes["📝 Notes API"]
+
+    WebBrowser -->|Cookie header| Gateway
+    MobileApp -->|Authorization: Bearer| Gateway
+    AdminDash -->|Session cookie| Gateway
+    Gateway --> AuthSvc
+    AuthSvc -->|sessions| Redis
+    AuthSvc -->|validated| Notes
+
+    style AuthSvc fill:#ff9,stroke:#f90
+    style Gateway fill:#e1f5fe
+```

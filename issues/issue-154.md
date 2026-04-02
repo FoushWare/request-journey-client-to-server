@@ -66,3 +66,30 @@ This is one of the most important real-world skills:
 - **Grafana + Prometheus** — observe the system under load
 - **Redis** — caching layer
 - **PostgreSQL read replicas** — scale database reads
+
+---
+
+## Architecture Diagram
+
+> Scaling solutions applied at each layer as traffic grows:
+
+```mermaid
+graph TB
+    Users["👥 Millions of Virtual Users\n(k6 load generator)"]
+    LB["⚖️ Load Balancer\n(Nginx / AWS ALB)"]
+    API["🌐 Notes API\n(horizontal scale)"]
+    Cache["⚡ Redis Cache\n(reduce DB hits)"]
+    DB["🗄️ PostgreSQL\n(read replicas)"]
+    Queue["📨 Kafka\n(async processing)"]
+    CDN["🌍 CDN\n(static assets)"]
+
+    Users -->|HTTP flood| LB
+    LB --> API
+    API --> Cache
+    Cache -->|miss| DB
+    API --> Queue
+
+    style Users fill:#ffcdd2,stroke:#f44336
+    style LB fill:#ff9,stroke:#f90
+    style Cache fill:#e8f5e9
+```
