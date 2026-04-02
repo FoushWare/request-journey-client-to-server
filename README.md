@@ -2,7 +2,7 @@
 
 > **Everything in one place.** This is a comprehensive, production-grade learning project that takes a simple Notes App from a browser click all the way to a globally distributed, auto-scaling, fully observable, security-hardened cloud deployment.
 >
-> Every layer is taught hands-on through 136+ structured tasks across 20 technology categories.
+> Every layer is taught hands-on through 141+ structured tasks across 21 technology categories.
 
 ---
 
@@ -11,23 +11,24 @@
 1. [What is This Project?](#what-is-this-project)
 2. [The Notes App](#the-notes-app)
 3. [Big Picture — Everything Connected](#big-picture--everything-connected)
-4. [Layer 1 — Client & Network Edge](#layer-1--client--network-edge)
-5. [Layer 2 — Load Balancer & Reverse Proxy (NGINX)](#layer-2--load-balancer--reverse-proxy-nginx)
-6. [Layer 3 — API Gateway & Microservices](#layer-3--api-gateway--microservices)
-7. [Layer 4 — Event Streaming (Kafka)](#layer-4--event-streaming-kafka)
-8. [Layer 5 — Databases & Storage](#layer-5--databases--storage)
-9. [Layer 6 — Container Orchestration (Kubernetes)](#layer-6--container-orchestration-kubernetes)
-10. [Layer 7 — GitOps & Helm](#layer-7--gitops--helm)
-11. [Layer 8 — Service Mesh (Istio)](#layer-8--service-mesh-istio)
-12. [Layer 9 — CI/CD Pipelines](#layer-9--cicd-pipelines)
-13. [Layer 10 — Security](#layer-10--security)
-14. [Layer 11 — Observability (Logs, Metrics, Traces)](#layer-11--observability-logs-metrics-traces)
-15. [Layer 12 — Infrastructure as Code (Terraform + Ansible)](#layer-12--infrastructure-as-code-terraform--ansible)
-16. [Layer 13 — Cloud Deployment (AWS / GCP / Azure)](#layer-13--cloud-deployment-aws--gcp--azure)
-17. [Layer 14 — Serverless (Lambda / Cloud Functions)](#layer-14--serverless-lambda--cloud-functions)
-18. [Layer 15 — Distributed Systems](#layer-15--distributed-systems)
-19. [The Full Learning Roadmap](#the-full-learning-roadmap)
-20. [Task Categories & File Index](#task-categories--file-index)
+4. [Layer 0 — Micro-Frontend Architecture](#layer-0--micro-frontend-architecture)
+5. [Layer 1 — Client & Network Edge](#layer-1--client--network-edge)
+6. [Layer 2 — Load Balancer & Reverse Proxy (NGINX)](#layer-2--load-balancer--reverse-proxy-nginx)
+7. [Layer 3 — API Gateway & Microservices](#layer-3--api-gateway--microservices)
+8. [Layer 4 — Event Streaming (Kafka)](#layer-4--event-streaming-kafka)
+9. [Layer 5 — Databases & Storage](#layer-5--databases--storage)
+10. [Layer 6 — Container Orchestration (Kubernetes)](#layer-6--container-orchestration-kubernetes)
+11. [Layer 7 — GitOps & Helm](#layer-7--gitops--helm)
+12. [Layer 8 — Service Mesh (Istio)](#layer-8--service-mesh-istio)
+13. [Layer 9 — CI/CD Pipelines](#layer-9--cicd-pipelines)
+14. [Layer 10 — Security](#layer-10--security)
+15. [Layer 11 — Observability (Logs, Metrics, Traces)](#layer-11--observability-logs-metrics-traces)
+16. [Layer 12 — Infrastructure as Code (Terraform + Ansible)](#layer-12--infrastructure-as-code-terraform--ansible)
+17. [Layer 13 — Cloud Deployment (AWS / GCP / Azure)](#layer-13--cloud-deployment-aws--gcp--azure)
+18. [Layer 14 — Serverless (Lambda / Cloud Functions)](#layer-14--serverless-lambda--cloud-functions)
+19. [Layer 15 — Distributed Systems](#layer-15--distributed-systems)
+20. [The Full Learning Roadmap](#the-full-learning-roadmap)
+21. [Task Categories & File Index](#task-categories--file-index)
 
 ---
 
@@ -62,6 +63,7 @@ The foundation application is deliberately simple so that all learning energy go
 | Layer | Technology |
 |-------|-----------|
 | Frontend | React / Next.js / Tailwind CSS |
+| **Micro-Frontends** | **Webpack 5 Module Federation, Nx MFE, single-spa** |
 | Backend (main) | Node.js / Express |
 | Microservices | Node.js (Nx monorepo), Go, Python |
 | Auth | JWT (HS256, access + refresh) |
@@ -86,6 +88,12 @@ The foundation application is deliberately simple so that all learning energy go
 graph TB
     subgraph Client["🌐 Client Layer"]
         Browser["Browser / Mobile App"]
+        subgraph MFE_Layer["🧩 Micro-Frontends (Module Federation)"]
+            Shell["Shell App\n(host, routing)"]
+            AuthMFE["Auth MFE\n(/login /register)"]
+            NotesMFE["Notes MFE\n(/notes)"]
+            SearchMFE["Search MFE\n(/search)"]
+        end
     end
 
     subgraph Edge["🔗 Network Edge"]
@@ -173,6 +181,12 @@ graph TB
         LocalStack["LocalStack\n(Local dev)"]
     end
 
+    %% MFE layer
+    Browser --- Shell
+    Shell --> AuthMFE
+    Shell --> NotesMFE
+    Shell --> SearchMFE
+
     %% Request flow
     Browser -->|HTTPS| DNS
     DNS --> CDN
@@ -231,6 +245,7 @@ graph TB
     CF --- CDN
 
     style Client fill:#e1f5fe,stroke:#01579b
+    style MFE_Layer fill:#fce4ec,stroke:#c62828
     style Edge fill:#fff3e0,stroke:#e65100
     style Proxy fill:#fce4ec,stroke:#880e4f
     style Services fill:#e8f5e9,stroke:#1b5e20
@@ -246,6 +261,89 @@ graph TB
     style IaC fill:#fbe9e7,stroke:#bf360c
     style Cloud fill:#e3f2fd,stroke:#0d47a1
 ```
+
+---
+
+## Layer 0 — Micro-Frontend Architecture
+
+> **The frontend is also decomposed.** Just as the backend is split into microservices, the Notes App UI is split into independently deployable **Micro-Frontends** — one per feature domain — orchestrated by a Shell App using Webpack 5 Module Federation.
+
+```mermaid
+graph TB
+    subgraph Shell["🏠 Shell App — Host (Next.js, port 3000)"]
+        Router["Client-side Router\n/ → layout\n/auth → AuthMFE\n/notes → NotesMFE\n/search → SearchMFE\n/me → ProfileMFE"]
+        SharedCtx["Shared Context\n(AuthContext, Theme)"]
+        SharedUI["@notes-app/shared-ui\n(Button, Modal, Navbar)"]
+    end
+
+    subgraph Remotes["🧩 Remote MFEs (independently deployed)"]
+        AuthMFE["🔐 Auth MFE\n(React, Vite — port 3001)\nLogin / Register / 2FA\nOwner: Auth Team"]
+        NotesMFE["📝 Notes MFE\n(Next.js — port 3002)\nNote list + editor\nOwner: Notes Team"]
+        SearchMFE["🔍 Search MFE\n(React, Vite — port 3003)\nSearch + results\nOwner: Search Team"]
+        ProfileMFE["👤 Profile MFE\n(Next.js SSR — port 3004)\nUser settings\nOwner: Platform Team"]
+    end
+
+    subgraph Hosting["📦 Deployment"]
+        CDN_MFE["CloudFront + S3\n(CSR MFEs: Auth, Notes, Search)\nremoteEntry.js — no cache\nchunks — 1yr cache"]
+        K8S_MFE["Kubernetes EKS\n(SSR MFE: Profile)\nDeployment + Service + Ingress"]
+        NxBuild["Nx Workspace\nnx affected:build\n(only changed MFEs rebuild)"]
+    end
+
+    Shell -->|Module Federation| AuthMFE
+    Shell -->|Module Federation| NotesMFE
+    Shell -->|Module Federation| SearchMFE
+    Shell -->|Module Federation| ProfileMFE
+
+    AuthMFE --> CDN_MFE
+    NotesMFE --> CDN_MFE
+    SearchMFE --> CDN_MFE
+    ProfileMFE --> K8S_MFE
+
+    NxBuild --> CDN_MFE
+    NxBuild --> K8S_MFE
+
+    style Shell fill:#e1f5fe,stroke:#01579b
+    style Remotes fill:#fce4ec,stroke:#c62828
+    style Hosting fill:#e8f5e9,stroke:#1b5e20
+```
+
+### MFE ↔ Microservice Mapping
+
+| Micro-Frontend | Calls | Backend Microservice |
+|---------------|-------|---------------------|
+| Auth MFE | REST `/api/auth/*` | Auth Service (Go/Node.js) |
+| Notes MFE | REST `/api/notes/*` | Notes Service (Go/Node.js) |
+| Search MFE | REST `/api/search/*` | Search Service (TypeScript) |
+| Profile MFE | REST `/api/auth/*` + `/api/notes/*` | Auth + Notes Services |
+
+### Module Federation Architecture
+
+```mermaid
+sequenceDiagram
+    participant Browser as 👤 Browser
+    participant Shell as 🏠 Shell App (host)
+    participant CDN as 📡 CDN / S3
+    participant AuthSvc as 🔐 Auth Service
+
+    Browser->>Shell: Load notes-app.com
+    Shell->>CDN: GET /importmap.json
+    CDN-->>Shell: { auth-mfe: "cdn.../auth-mfe/remoteEntry.js" }
+    Browser->>CDN: GET /auth-mfe/remoteEntry.js
+    CDN-->>Browser: remoteEntry manifest
+    Note over Browser: User navigates to /login
+    Browser->>CDN: GET /auth-mfe/chunk-abc123.js (lazy)
+    CDN-->>Browser: Auth MFE bundle (cached 1yr)
+    Browser->>AuthSvc: POST /api/auth/login
+    AuthSvc-->>Browser: JWT token
+    Note over Browser: Token stored in Shell's AuthContext\nAvailable to ALL MFEs
+```
+
+**Tasks:** `tasks/micro-frontend/`
+- `task-001-introduction-to-micro-frontends.md` — Architecture, decomposition, when to use
+- `task-002-module-federation-webpack5.md` — Webpack 5 Module Federation, shared singletons
+- `task-003-single-spa-orchestration.md` — single-spa alternative, framework-agnostic
+- `task-004-nx-monorepo-micro-frontends.md` — Nx generators, shared libs, `nx affected`
+- `task-005-deploy-mfe-kubernetes-cdn.md` — S3+CloudFront (CSR) + K8s (SSR), cache strategy
 
 ---
 
@@ -908,7 +1006,8 @@ graph LR
     P17["Phase 17\nKafka\nMessaging\n5 tasks"] --> P18
     P18["Phase 18\nSystem Design\n4 tasks"] --> P19
     P19["Phase 19\nTerraform\n10 tasks"] --> P20
-    P20["Phase 20\nServerless\n1 task"] --> DONE
+    P20["Phase 20\nServerless\n1 task"] --> P21
+    P21["Phase 21\nMicro-\nFrontends\n5 tasks"] --> DONE
     DONE["🎯\nProduction\nReady"]
 
     style P0 fill:#4CAF50,color:#fff
@@ -941,6 +1040,7 @@ graph LR
 | **Messaging** | `tasks/messaging/` | 5 | Kafka setup, DLQ, retry patterns, partitions, consumer groups |
 | **System Design** | `tasks/system-design/` | 4 | Architecture diagrams, load testing (k6), scaling strategies, caching |
 | **Terraform** | `tasks/terraform/` | 10 | Install, basics, EC2, RDS, S3, VPC, EKS, state, modules |
+| **Micro-Frontend** | `tasks/micro-frontend/` | 5 | Module Federation, single-spa, Nx MFE, CSR/SSR deploy to CDN + K8s |
 
 ---
 
@@ -967,7 +1067,7 @@ request-journey-client-to-server/
 │   │   └── 11-nx-monorepo.md
 │   └── AUTOMATION_REFERENCE.md  ← IaC reference matrix
 │
-├── tasks/                       ← 136+ learning tasks (20 categories)
+├── tasks/                       ← 141+ learning tasks (21 categories)
 │   ├── docker/
 │   ├── kubernetes/
 │   ├── ci-cd/
@@ -981,6 +1081,7 @@ request-journey-client-to-server/
 │   ├── gitops/
 │   ├── service-mesh/
 │   ├── microservices/
+│   ├── micro-frontend/          ← NEW: Module Federation, Nx MFE, single-spa, CDN deploy
 │   ├── helm/
 │   ├── hashicorp/
 │   ├── vault/
@@ -1036,7 +1137,8 @@ request-journey-client-to-server/
 2. **Learn raw, then automate** — Tasks teach manual steps first; `automation/` provides the IaC equivalent
 3. **Diagrams are mandatory** — Every task has an inline Mermaid diagram (enforced by `.cursor/rules/`)
 4. **Automation Reference section** — Every task ends with a table linking to `automation/terraform/` or `automation/ansible/`
-5. **Nx monorepo** — Node.js/TypeScript microservices live in a shared Nx workspace with shared libraries
+5. **Nx monorepo for everything** — Node.js/TypeScript microservices AND micro-frontend apps share a single Nx workspace with shared libraries (`shared/ui`, `shared/auth`, `shared/types`)
+6. **Micro-frontends = microservices for the browser** — Frontend is also independently deployed per feature domain using Webpack 5 Module Federation
 6. **GitOps by default** — All Kubernetes changes go through Git → Argo CD, never `kubectl apply` by hand in production
 
 ---
