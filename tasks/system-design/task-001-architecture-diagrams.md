@@ -126,6 +126,30 @@ Create Level 1 and Level 2 diagrams using Mermaid.
 
 ---
 
+## Architecture Diagram
+
+> Where this task fits in the overall request journey — every layer that needs a diagram:
+
+```mermaid
+graph LR
+    Client(["🌐 Browser / App"]) --> CDN["CDN / Edge Cache"]
+    CDN --> LB["Load Balancer"]
+    LB --> GW["API Gateway"]
+    GW --> Auth["🔐 Auth Service"]
+    GW --> Notes["📝 Notes Service"]
+    Notes --> DB[("🗄️ PostgreSQL")]
+    Notes --> Cache["⚡ Redis"]
+    Notes --> MQ["📨 Kafka"]
+    MQ --> Email["📧 Email Service"]
+
+    style GW fill:#ff9,stroke:#f90
+    style Notes fill:#e8f5e9
+```
+
+**Full project diagram:** [docs/diagrams/00-big-picture.md](../docs/diagrams/00-big-picture.md)
+
+---
+
 ## Automation Reference
 
 > The steps above are **manual/raw** — they teach you the concept by doing it yourself.  

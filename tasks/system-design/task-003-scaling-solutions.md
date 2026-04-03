@@ -150,7 +150,7 @@ After each scaling solution, run k6 and record:
 
 ---
 
-## Diagram
+## Architecture Diagram
 
 ```mermaid
 graph TD

@@ -147,7 +147,7 @@ Look for the first resource that hits 100%:
 
 ---
 
-## Diagram
+## Architecture Diagram
 
 ```mermaid
 flowchart LR
