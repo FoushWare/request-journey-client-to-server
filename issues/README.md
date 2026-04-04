@@ -2,7 +2,9 @@
 
 This directory contains all issues from the repository: https://github.com/FoushWare/request-journey-client-to-server
 
-## Total Issues: 100
+> See [ISSUE_TRACKER.md](./ISSUE_TRACKER.md) for the complete tracking table of all processed issues.
+
+## Total Issues: 127 (processed) | 158 (on GitHub)
 
 ## Issues by Category
 
@@ -118,6 +120,33 @@ This directory contains all issues from the repository: https://github.com/Foush
 - **Issue #33**: Add docker-compose.yml
 - **Issue #32**: Add Dockerfile for frontend
 
+### New Batch: Advanced Distributed Systems & Messaging (Issues #148–#158)
+
+#### AWS / Cloud
+- **Issue #148**: Add LocalStack to the journey — local AWS emulation
+- **Issue #149**: Add Digital Ocean or Azure as alternative cloud providers
+
+#### Distributed Systems (New Category)
+- **Issue #150**: Leader Election — Raft Consensus algorithm
+- **Issue #151**: Durable Execution — explore and use Restate.dev
+- **Issue #158**: ZooKeeper fundamentals and leader election
+
+#### Microservices Extension
+- **Issue #152**: Add Email Service to the Microservices architecture
+- **Issue #153**: Create architecture diagrams for the whole design
+
+#### System Design (New Category)
+- **Issue #154**: Simulate millions of users and apply system design solutions
+
+#### Security Extension
+- **Issue #155**: Use sessions, JWT tokens, cookies for different services
+
+#### Messaging / Kafka (New Category)
+- **Issue #156**: Simulate the Dead Letter Queue (DLQ) issue in Kafka
+- **Issue #157**: Kafka partitions and consumer groups
+
+---
+
 ## How to Use
 
 Each issue file contains:
@@ -128,5 +157,5 @@ Each issue file contains:
 - Labels
 - Full issue description and tasks
 
-You can now analyze these issues and create a plan to proceed with them.
+See [ISSUE_TRACKER.md](./ISSUE_TRACKER.md) to check which issues have already been processed.
 

@@ -1,0 +1,38 @@
+---
+# Master playbook — runs all roles in the correct order
+# Usage: ansible-playbook site.yml -i inventory/hosts.ini
+
+- name: Apply security hardening to all hosts
+  hosts: all
+  become: true
+  roles:
+    - role: security
+      tags: security
+
+- name: Install Docker on all nodes
+  hosts: k8s_nodes
+  become: true
+  roles:
+    - role: docker
+      tags: docker
+
+- name: Install Kubernetes tools
+  hosts: control_plane
+  become: false
+  roles:
+    - role: kubernetes
+      tags: kubernetes
+
+- name: Deploy Notes App services
+  hosts: control_plane
+  become: false
+  roles:
+    - role: notes-app
+      tags: app
+
+- name: Deploy monitoring stack (Prometheus + Grafana)
+  hosts: control_plane
+  become: false
+  roles:
+    - role: monitoring
+      tags: monitoring

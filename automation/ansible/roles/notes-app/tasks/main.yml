@@ -1,0 +1,145 @@
+---
+# roles/notes-app/tasks/main.yml
+# Deploys all Notes App microservices to Kubernetes via Helm
+
+- name: Authenticate Docker to ECR
+  ansible.builtin.shell: >
+    aws ecr get-login-password --region {{ aws_region }} |
+    docker login --username AWS --password-stdin {{ ecr_registry }}
+  changed_when: false
+
+- name: Create notes-app namespace
+  kubernetes.core.k8s:
+    name: "{{ k8s_app_namespace }}"
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Create ECR pull secret for notes-app namespace
+  ansible.builtin.shell: >
+    kubectl create secret docker-registry ecr-pull-secret
+    --docker-server={{ ecr_registry }}
+    --docker-username=AWS
+    --docker-password=$(aws ecr get-login-password --region {{ aws_region }})
+    --namespace={{ k8s_app_namespace }}
+    --dry-run=client -o yaml | kubectl apply -f -
+  changed_when: false
+
+- name: Deploy NGINX Ingress Controller
+  kubernetes.core.helm:
+    name: ingress-nginx
+    chart_ref: ingress-nginx/ingress-nginx
+    release_namespace: infrastructure
+    create_namespace: true
+    values:
+      controller:
+        replicaCount: 2
+        service:
+          type: LoadBalancer
+          annotations:
+            service.beta.kubernetes.io/aws-load-balancer-type: external
+            service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+        metrics:
+          enabled: true
+        podAnnotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "10254"
+
+- name: Deploy cert-manager (TLS automation)
+  kubernetes.core.helm:
+    name: cert-manager
+    chart_ref: jetstack/cert-manager
+    release_namespace: infrastructure
+    values:
+      installCRDs: true
+      prometheus:
+        enabled: true
+
+- name: Deploy Auth Service
+  kubernetes.core.helm:
+    name: auth-service
+    chart_ref: notes-app/auth-service
+    release_namespace: "{{ k8s_app_namespace }}"
+    values:
+      image:
+        repository: "{{ ecr_registry }}/{{ project_name }}-{{ environment }}/auth-service"
+        tag: "{{ notes_app_version }}"
+      replicaCount: 2
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 500m
+          memory: 256Mi
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+        maxReplicas: 10
+        targetCPUUtilizationPercentage: 70
+      serviceAccount:
+        annotations:
+          eks.amazonaws.com/role-arn: "{{ auth_service_role_arn }}"
+
+- name: Deploy Notes Service
+  kubernetes.core.helm:
+    name: notes-service
+    chart_ref: notes-app/notes-service
+    release_namespace: "{{ k8s_app_namespace }}"
+    values:
+      image:
+        repository: "{{ ecr_registry }}/{{ project_name }}-{{ environment }}/notes-service"
+        tag: "{{ notes_app_version }}"
+      replicaCount: 3
+      resources:
+        requests:
+          cpu: 200m
+          memory: 256Mi
+        limits:
+          cpu: 1000m
+          memory: 512Mi
+      autoscaling:
+        enabled: true
+        minReplicas: 3
+        maxReplicas: 20
+        targetCPUUtilizationPercentage: 70
+      serviceAccount:
+        annotations:
+          eks.amazonaws.com/role-arn: "{{ notes_service_role_arn }}"
+
+- name: Deploy Email Service
+  kubernetes.core.helm:
+    name: email-service
+    chart_ref: notes-app/email-service
+    release_namespace: "{{ k8s_app_namespace }}"
+    values:
+      image:
+        repository: "{{ ecr_registry }}/{{ project_name }}-{{ environment }}/email-service"
+        tag: "{{ notes_app_version }}"
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          cpu: 200m
+          memory: 256Mi
+
+- name: Wait for all deployments to be ready
+  ansible.builtin.command:
+    cmd: "kubectl rollout status deployment/{{ item }} -n {{ k8s_app_namespace }} --timeout=300s"
+  loop:
+    - auth-service
+    - notes-service
+    - email-service
+  changed_when: false
+
+- name: Show deployed pods
+  ansible.builtin.command:
+    cmd: "kubectl get pods -n {{ k8s_app_namespace }}"
+  changed_when: false
+  register: pods_output
+
+- name: Print pod status
+  ansible.builtin.debug:
+    msg: "{{ pods_output.stdout_lines }}"

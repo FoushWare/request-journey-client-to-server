@@ -1,0 +1,80 @@
+---
+# roles/kubernetes/tasks/main.yml
+# Installs kubectl, helm, kubeconfig, and Argo CD CLI
+
+- name: Install kubectl
+  block:
+    - name: Download kubectl binary
+      ansible.builtin.get_url:
+        url: "https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/amd64/kubectl"
+        dest: /usr/local/bin/kubectl
+        mode: "0755"
+
+    - name: Verify kubectl installation
+      ansible.builtin.command: kubectl version --client --output=json
+      register: kubectl_check
+      changed_when: false
+
+- name: Install helm
+  block:
+    - name: Download Helm install script
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+        dest: /tmp/get-helm-3.sh
+        mode: "0700"
+
+    - name: Run Helm installer
+      ansible.builtin.command:
+        cmd: /tmp/get-helm-3.sh
+        creates: /usr/local/bin/helm
+
+    - name: Add notes-app Helm repo
+      kubernetes.core.helm_repository:
+        name: notes-app
+        repo_url: "https://charts.notes-app.example.com"
+
+    - name: Add ingress-nginx repo
+      kubernetes.core.helm_repository:
+        name: ingress-nginx
+        repo_url: https://kubernetes.github.io/ingress-nginx
+
+    - name: Add cert-manager repo
+      kubernetes.core.helm_repository:
+        name: jetstack
+        repo_url: https://charts.jetstack.io
+
+    - name: Add prometheus-community repo
+      kubernetes.core.helm_repository:
+        name: prometheus-community
+        repo_url: https://prometheus-community.github.io/helm-charts
+
+    - name: Update all Helm repos
+      ansible.builtin.command: helm repo update
+      changed_when: false
+
+- name: Configure kubeconfig from EKS
+  ansible.builtin.command:
+    cmd: "aws eks update-kubeconfig --name {{ project_name }}-{{ environment }}-cluster --region {{ aws_region }}"
+  environment:
+    AWS_DEFAULT_REGION: "{{ aws_region }}"
+  changed_when: false
+
+- name: Create application namespaces
+  kubernetes.core.k8s:
+    name: "{{ item }}"
+    api_version: v1
+    kind: Namespace
+    state: present
+  loop:
+    - "{{ k8s_app_namespace }}"
+    - "{{ k8s_monitoring_namespace }}"
+    - "{{ k8s_logging_namespace }}"
+    - messaging
+    - data
+    - infrastructure
+
+- name: Install Argo CD CLI
+  ansible.builtin.get_url:
+    url: "https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64"
+    dest: /usr/local/bin/argocd
+    mode: "0755"

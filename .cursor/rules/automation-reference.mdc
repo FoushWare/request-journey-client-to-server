@@ -1,0 +1,58 @@
+---
+description: "Automation reference — every task must reference automation/ equivalents"
+alwaysApply: true
+---
+
+# Automation Reference Standard
+
+> Every task teaches concepts **manually** (raw steps). Every task MUST also reference the  
+> production-grade IaC equivalent in `automation/`.  
+> Full reference matrix: `docs/AUTOMATION_REFERENCE.md`
+
+## The Two-Layer Rule
+
+| Layer | Location | Purpose |
+|-------|----------|---------|
+| Manual / raw | `tasks/**/*.md` | Teach the concept step-by-step |
+| Automated / IaC | `automation/terraform/` or `automation/ansible/` | Production equivalent |
+
+Both layers must always exist. If the automation equivalent doesn't exist yet, note it as "TODO — see automation/".
+
+## Required Section in Every Task File
+
+Every task file MUST end with an `## Automation Reference` section:
+
+```markdown
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Infrastructure (Terraform) | [`automation/terraform/modules/XXX`](../../automation/terraform/modules/XXX) | Automated provisioning |
+| Configuration (Ansible) | [`automation/ansible/roles/XXX`](../../automation/ansible/roles/XXX) | Automated configuration |
+
+> 💡 Complete this task manually first. Then read the automation code to understand production.
+```
+
+## Automation Mapping Quick Reference
+
+| Task Category | Terraform Module | Ansible Role |
+|---------------|-----------------|-------------|
+| Docker | — | `automation/ansible/roles/docker/` |
+| Kubernetes / EKS | `automation/terraform/modules/eks/` | `automation/ansible/roles/kubernetes/` |
+| App deployment | — | `automation/ansible/roles/notes-app/` |
+| Monitoring | — | `automation/ansible/roles/monitoring/` |
+| Security hardening | — | `automation/ansible/roles/security/` |
+| VPC / Networking | `automation/terraform/modules/vpc/` | — |
+| RDS / Databases | `automation/terraform/modules/rds/` | — |
+| Redis | `automation/terraform/modules/elasticache/` | — |
+| S3 | `automation/terraform/modules/s3/` | — |
+| ECR | `automation/terraform/modules/ecr/` | — |
+| IAM | `automation/terraform/modules/iam/` | — |
+| Security Groups | `automation/terraform/modules/security_groups/` | — |
+| KMS | `automation/terraform/modules/kms/` | — |
+| TLS / ACM | `automation/terraform/modules/acm/` | — |
+
+Full mapping: `docs/AUTOMATION_REFERENCE.md`

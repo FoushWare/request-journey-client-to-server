@@ -1,0 +1,4 @@
+---
+# roles/security/defaults/main.yml
+
+security_auto_update: true

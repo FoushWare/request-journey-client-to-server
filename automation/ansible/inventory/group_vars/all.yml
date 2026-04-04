@@ -1,0 +1,25 @@
+---
+# Variables for ALL hosts
+
+# Project settings
+project_name: notes-app
+environment: dev
+
+# Docker settings
+docker_version: "24.0"
+docker_compose_version: "2.21.0"
+
+# AWS settings
+aws_region: us-east-1
+ecr_registry: "{{ lookup('env', 'AWS_ACCOUNT_ID') }}.dkr.ecr.{{ aws_region }}.amazonaws.com"
+
+# Application image tags
+notes_app_version: latest
+auth_service_image: "{{ ecr_registry }}/{{ project_name }}-{{ environment }}/auth-service:{{ notes_app_version }}"
+notes_service_image: "{{ ecr_registry }}/{{ project_name }}-{{ environment }}/notes-service:{{ notes_app_version }}"
+email_service_image: "{{ ecr_registry }}/{{ project_name }}-{{ environment }}/email-service:{{ notes_app_version }}"
+
+# Kubernetes namespaces
+k8s_app_namespace: notes-app
+k8s_monitoring_namespace: monitoring
+k8s_logging_namespace: logging

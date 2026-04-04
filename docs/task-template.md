@@ -8,7 +8,11 @@ Use this template when creating new tasks. Copy this structure and fill in the d
 **Related Issue:** #XX  
 **Prerequisites:** [List prerequisite tasks, e.g., "task-001", "task-002"]  
 **Estimated Time:** [X hours/days]  
-**Notes App Context:** [Brief description of how this applies to Notes App]
+**Notes App Context:** [Brief description of how this applies to Notes App]  
+**Automation Reference:** [`automation/terraform/modules/XXX`](../automation/terraform/modules/XXX) · [`automation/ansible/roles/XXX`](../automation/ansible/roles/XXX)
+
+> 💡 **Manual vs Automated**: This task teaches the concept step-by-step manually.  
+> The `automation/` directory contains the production-grade IaC equivalent.
 
 ---
 
@@ -20,6 +24,24 @@ By the end of this task, you will be able to:
 - [Objective 2: e.g., "Create a multi-stage Dockerfile for Next.js applications"]
 - [Objective 3: e.g., "Optimize Docker images for production use"]
 - [Add more objectives as needed]
+
+---
+
+## Architecture Diagram
+
+> Where this component fits in the overall request journey:
+
+```mermaid
+graph TB
+    Client["🌐 Client"]
+    %%  TODO: Add the component this task teaches
+    %%  TODO: Show where it sits in the request journey chain
+    %%  TODO: Highlight the component with:
+    %%    style ComponentName fill:#ff9,stroke:#f90,stroke-width:3px
+```
+
+**Full project diagram:** [docs/diagrams/00-big-picture.md](./diagrams/00-big-picture.md)  
+**Related standalone diagram:** [docs/diagrams/NN-name.md](./diagrams/NN-name.md)
 
 ---
 
@@ -248,6 +270,20 @@ After completing this task:
    - [Related task 1]
    - [Related task 2]
 3. **Future Learning**: [What concepts to explore next]
+
+---
+
+## Automation Reference
+
+> The steps above are **manual/raw** — they teach you the concept by doing it yourself.  
+> The `automation/` directory contains the production-grade IaC equivalent:
+
+| What | Where | Description |
+|------|-------|-------------|
+| Infrastructure (Terraform) | [`automation/terraform/modules/XXX`](../../automation/terraform/modules/XXX) | Automated provisioning |
+| Configuration (Ansible) | [`automation/ansible/roles/XXX`](../../automation/ansible/roles/XXX) | Automated configuration |
+
+> 💡 Complete this task manually first. Then read the automation code to see how it would be done in production.
 
 ---
 

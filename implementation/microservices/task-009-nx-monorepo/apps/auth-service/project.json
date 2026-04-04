@@ -1,0 +1,48 @@
+{
+  "name": "auth-service",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/auth-service/src",
+  "projectType": "application",
+  "tags": ["type:app", "scope:auth"],
+  "targets": {
+    "build": {
+      "executor": "@nx/node:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/auth-service",
+        "main": "apps/auth-service/src/main.ts",
+        "tsConfig": "apps/auth-service/tsconfig.app.json",
+        "assets": []
+      },
+      "configurations": {
+        "development": { "sourceMap": true },
+        "production": { "sourceMap": false }
+      }
+    },
+    "serve": {
+      "executor": "@nx/node:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "auth-service:build",
+        "port": 3333
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/auth-service"],
+      "options": { "jestConfig": "apps/auth-service/jest.config.ts" }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": { "lintFilePatterns": ["apps/auth-service/**/*.ts"] }
+    },
+    "docker-build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker build -f apps/auth-service/Dockerfile -t notes-app/auth-service:{args.tag} .",
+        "cwd": "{workspaceRoot}"
+      }
+    }
+  }
+}

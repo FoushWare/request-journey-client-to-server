@@ -1,0 +1,10 @@
+---
+# roles/monitoring/defaults/main.yml
+# IMPORTANT: grafana_admin_password MUST be overridden before deployment.
+# Set it via: ansible-playbook --extra-vars "@secrets.yml" (encrypted with ansible-vault)
+# Example: ansible-vault create secrets.yml
+# Never commit the actual password.
+
+grafana_admin_password: ""  # Required: set via ansible-vault or --extra-vars
+slack_webhook_url: ""
+pagerduty_service_key: ""

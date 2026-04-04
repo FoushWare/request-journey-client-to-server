@@ -1,0 +1,74 @@
+---
+description: "Diagram Standard — every task, feature, and subsystem MUST include a Mermaid diagram"
+alwaysApply: true
+---
+
+# Diagram Standard — Mandatory for Every Task and Feature
+
+> This rule enforces Section 9 of `CONSTITUTION.md`.  
+> See full standard: `docs/diagrams/README.md`
+
+## The Rule
+
+**EVERY** file you create or update in the following locations MUST contain at least one Mermaid diagram:
+
+- `tasks/**/*.md` — always add `## Architecture Diagram` section
+- `capsule-projects/*/README.md` — always add architecture diagram
+- `issues/issue-*.md` — always add where the concept sits in the request journey
+- `plans/*.md` — always add a diagram showing the integration
+- `implementation/**/README.md` — always add component diagram
+
+## Required Section in Every Task File
+
+Add this section after the Theory section in every task:
+
+~~~~markdown
+## Architecture Diagram
+
+> Where this component fits in the overall request journey:
+
+```mermaid
+graph TB
+    Client["🌐 Client"]
+    %%  Add the component this task teaches
+    %%  Show where it sits in the chain
+    %%  Highlight it with: style ComponentName fill:#ff9,stroke:#f90
+```
+
+**Full project diagram:** [docs/diagrams/00-big-picture.md](./diagrams/00-big-picture.md)  
+**Related diagram:** [docs/diagrams/NN-name.md](./diagrams/NN-name.md)
+~~~~
+
+## When Adding a New Subsystem
+
+1. Create `docs/diagrams/NN-kebab-name.md` with a detailed Mermaid diagram
+2. Add the file to the table in `docs/diagrams/README.md`
+3. Update `docs/diagrams/00-big-picture.md` to include the new subsystem
+4. Reference the new diagram from the task file
+
+## Diagram Type Selection
+
+| Situation | Use |
+|-----------|-----|
+| Showing architecture or component relationships | `graph TB` |
+| Showing a request/response flow | `sequenceDiagram` |
+| Showing git branching | `gitGraph` |
+| Showing a concept tree or learning map | `mindmap` |
+| Showing a timeline or latency budget | `gantt` |
+
+## Highlight the Component Being Taught
+
+Always highlight the component that is the focus of the current task:
+
+```mermaid
+graph TB
+    Client --> NGINX --> AuthService
+    style AuthService fill:#ff9,stroke:#f90,stroke-width:3px
+```
+
+## Never Skip the Diagram
+
+- If you are creating a task → diagram is required
+- If you are updating a task → add a diagram if one doesn't exist
+- If a diagram would be too complex → break it into two simpler diagrams
+- There is no valid reason to omit a diagram
