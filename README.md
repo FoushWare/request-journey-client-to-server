@@ -10,25 +10,26 @@
 
 1. [What is This Project?](#what-is-this-project)
 2. [The Notes App](#the-notes-app)
-3. [Big Picture — Everything Connected](#big-picture--everything-connected)
-4. [Layer 0 — Micro-Frontend Architecture](#layer-0--micro-frontend-architecture)
-5. [Layer 1 — Client & Network Edge](#layer-1--client--network-edge)
-6. [Layer 2 — Load Balancer & Reverse Proxy (NGINX)](#layer-2--load-balancer--reverse-proxy-nginx)
-7. [Layer 3 — API Gateway & Microservices](#layer-3--api-gateway--microservices)
-8. [Layer 4 — Event Streaming (Kafka)](#layer-4--event-streaming-kafka)
-9. [Layer 5 — Databases & Storage](#layer-5--databases--storage)
-10. [Layer 6 — Container Orchestration (Kubernetes)](#layer-6--container-orchestration-kubernetes)
-11. [Layer 7 — GitOps & Helm](#layer-7--gitops--helm)
-12. [Layer 8 — Service Mesh (Istio)](#layer-8--service-mesh-istio)
-13. [Layer 9 — CI/CD Pipelines](#layer-9--cicd-pipelines)
-14. [Layer 10 — Security](#layer-10--security)
-15. [Layer 11 — Observability (Logs, Metrics, Traces)](#layer-11--observability-logs-metrics-traces)
-16. [Layer 12 — Infrastructure as Code (Terraform + Ansible)](#layer-12--infrastructure-as-code-terraform--ansible)
-17. [Layer 13 — Cloud Deployment (AWS / GCP / Azure)](#layer-13--cloud-deployment-aws--gcp--azure)
-18. [Layer 14 — Serverless (Lambda / Cloud Functions)](#layer-14--serverless-lambda--cloud-functions)
-19. [Layer 15 — Distributed Systems](#layer-15--distributed-systems)
-20. [The Full Learning Roadmap](#the-full-learning-roadmap)
-21. [Task Categories & File Index](#task-categories--file-index)
+3. [🚀 Getting Started — Phase Plans](#-getting-started)
+4. [Big Picture — Everything Connected](#big-picture--everything-connected)
+5. [Layer 0 — Micro-Frontend Architecture](#layer-0--micro-frontend-architecture)
+6. [Layer 1 — Client & Network Edge](#layer-1--client--network-edge)
+7. [Layer 2 — Load Balancer & Reverse Proxy (NGINX)](#layer-2--load-balancer--reverse-proxy-nginx)
+8. [Layer 3 — API Gateway & Microservices](#layer-3--api-gateway--microservices)
+9. [Layer 4 — Event Streaming (Kafka)](#layer-4--event-streaming-kafka)
+10. [Layer 5 — Databases & Storage](#layer-5--databases--storage)
+11. [Layer 6 — Container Orchestration (Kubernetes)](#layer-6--container-orchestration-kubernetes)
+12. [Layer 7 — GitOps & Helm](#layer-7--gitops--helm)
+13. [Layer 8 — Service Mesh (Istio)](#layer-8--service-mesh-istio)
+14. [Layer 9 — CI/CD Pipelines](#layer-9--cicd-pipelines)
+15. [Layer 10 — Security](#layer-10--security)
+16. [Layer 11 — Observability (Logs, Metrics, Traces)](#layer-11--observability-logs-metrics-traces)
+17. [Layer 12 — Infrastructure as Code (Terraform + Ansible)](#layer-12--infrastructure-as-code-terraform--ansible)
+18. [Layer 13 — Cloud Deployment (AWS / GCP / Azure)](#layer-13--cloud-deployment-aws--gcp--azure)
+19. [Layer 14 — Serverless (Lambda / Cloud Functions)](#layer-14--serverless-lambda--cloud-functions)
+20. [Layer 15 — Distributed Systems](#layer-15--distributed-systems)
+21. [The Full Learning Roadmap](#the-full-learning-roadmap)
+22. [Task Categories & File Index](#task-categories--file-index)
 
 ---
 
@@ -1123,10 +1124,28 @@ request-journey-client-to-server/
 │   ├── ISSUE_TRACKER.md         ← Master tracking spreadsheet
 │   ├── issue-032.md ... issue-168.md
 │
-└── plans/                       ← Session integration plans
-    ├── 01-integrate-new-github-issues.md
-    ├── ...
-    └── 09-integrate-new-github-issues-167.md
+└── plans/                       ← Learner phase plans (start here!)
+    ├── phase-01-micro-frontend.md        ← Phase 01: Configure MFE architecture first
+    ├── phase-02-docker-containerization.md
+    ├── phase-03-kubernetes-orchestration.md
+    ├── phase-04-cicd-pipelines.md
+    ├── phase-05-security-hardening.md
+    ├── phase-06-observability.md
+    ├── phase-07-nginx-reverse-proxy.md
+    ├── phase-08-ansible-automation.md
+    ├── phase-09-terraform-iac.md
+    ├── phase-10-aws-cloud.md
+    ├── phase-11-networking.md
+    ├── phase-12-gitops.md
+    ├── phase-13-service-mesh.md
+    ├── phase-14-microservices.md
+    ├── phase-15-helm.md
+    ├── phase-16-hashicorp.md
+    ├── phase-17-kafka-messaging.md
+    ├── phase-18-distributed-systems.md
+    ├── phase-19-serverless.md
+    ├── phase-20-system-design.md
+    └── phase-21-integration-final.md     ← Phase 21: Production readiness graduation
 ```
 
 ---
@@ -1145,21 +1164,81 @@ request-journey-client-to-server/
 
 ## 🚀 Getting Started
 
+The learning path is structured into **21 sequential phases**. Each phase plan is a step-by-step guide with task sequences, prerequisites, and success criteria. **Complete them in order — each phase depends on the previous one.**
+
+### Your Learning Journey
+
+```
+Phase 01  →  Phase 02  →  Phase 03  →  Phase 04  →  Phase 05  →  Phase 06
+  MFEs        Docker       Kubernetes    CI/CD        Security     Observability
+   │
+   └──►  Phase 07  →  Phase 08  →  Phase 09  →  Phase 10  →  Phase 11
+           NGINX        Ansible      Terraform     AWS Cloud    Networking
+                                                      │
+                                                      └──►  Phase 12  →  Phase 13  →  Phase 14
+                                                              GitOps       Service Mesh  Microservices
+                                                                               │
+                                                                               └──►  Phase 15  →  ...  →  Phase 21
+                                                                                       Helm                 Production Ready 🎯
+```
+
+### Step 1 — Clone the repository
+
 ```bash
-# 1. Clone the repository
 git clone https://github.com/FoushWare/request-journey-client-to-server.git
 cd request-journey-client-to-server
+```
 
-# 2. Browse the tasks
-ls tasks/
+### Step 2 — Read your first phase plan
 
-# 3. Start with Docker (recommended first phase)
-cat tasks/docker/task-001-create-notes-app-frontend-dockerfile.md
+Each file in `plans/` is a self-contained guide for one phase. Open Phase 01 and follow its task sequence:
 
-# 4. For local cloud dev (AWS services without real AWS)
+```bash
+# Open Phase 01 — start by configuring the Micro-Frontend architecture
+cat plans/phase-01-micro-frontend.md
+
+# Each phase plan links to the next one. Follow the chain:
+cat plans/phase-02-docker-containerization.md
+cat plans/phase-03-kubernetes-orchestration.md
+# ... continue through all 21 phases
+```
+
+### Phase Plans Quick Reference
+
+| Phase | File | What You Do |
+|-------|------|-------------|
+| 01 | `plans/phase-01-micro-frontend.md` | Configure the Notes App as Micro-Frontends (Module Federation + Nx) |
+| 02 | `plans/phase-02-docker-containerization.md` | Dockerize every service — `docker-compose up` runs the full stack |
+| 03 | `plans/phase-03-kubernetes-orchestration.md` | Deploy to Kubernetes with Deployments, Services, Ingress, HPA, Vault |
+| 04 | `plans/phase-04-cicd-pipelines.md` | Automate build → test → deploy with GitHub Actions + Jenkins |
+| 05 | `plans/phase-05-security-hardening.md` | HTTPS, JWT hardening, 2FA, rate limiting, OWASP Top 10 |
+| 06 | `plans/phase-06-observability.md` | ELK Stack, Prometheus/Grafana, Jaeger distributed tracing |
+| 07 | `plans/phase-07-nginx-reverse-proxy.md` | NGINX deep-dive: load balancing, caching, SSL, security headers |
+| 08 | `plans/phase-08-ansible-automation.md` | Automate server setup with Ansible playbooks and roles |
+| 09 | `plans/phase-09-terraform-iac.md` | Provision AWS infrastructure (VPC, EKS, RDS, S3) with Terraform |
+| 10 | `plans/phase-10-aws-cloud.md` | Deploy to AWS: ECR, EKS, S3+CloudFront, Route 53, Lambda, SES |
+| 11 | `plans/phase-11-networking.md` | OSI model, TCP/IP, DNS, TLS handshake, HTTP/2, gRPC |
+| 12 | `plans/phase-12-gitops.md` | GitOps with Argo CD — Git is the single source of truth |
+| 13 | `plans/phase-13-service-mesh.md` | Istio: mTLS, canary deploys, circuit breaking, Kiali |
+| 14 | `plans/phase-14-microservices.md` | Decompose monolith: Saga pattern, CQRS, Event Sourcing, Nx |
+| 15 | `plans/phase-15-helm.md` | Package K8s apps with Helm charts, multi-env values |
+| 16 | `plans/phase-16-hashicorp.md` | HashiCorp Consul + Nomad (Vault was introduced in Phase 03) |
+| 17 | `plans/phase-17-kafka-messaging.md` | Kafka deep-dive: partitions, consumer groups, DLQ, retries |
+| 18 | `plans/phase-18-distributed-systems.md` | Raft, etcd, CAP theorem, Restate durable execution |
+| 19 | `plans/phase-19-serverless.md` | AWS Lambda: email notify, image resize, cleanup, Lambda@Edge |
+| 20 | `plans/phase-20-system-design.md` | Load testing, scaling strategies, caching layers, system design |
+| 21 | `plans/phase-21-integration-final.md` | End-to-end integration, security audit, production readiness ✅ |
+
+### Optional: Local cloud development without a real AWS account
+
+```bash
+# Run AWS services locally with LocalStack
 docker-compose up localstack
+```
 
-# 5. For the full IaC stack
+### Optional: Inspect the full IaC stack (after Phase 09)
+
+```bash
 cd automation/terraform
 terraform init && terraform plan
 ```
