@@ -10,6 +10,12 @@
 
 This document details the integration of 1 new GitHub issue (#163) into the DevOps learning path. The issue extends the **CI/CD** track and addresses a critical real-world practice: making the deployment (CD) workflow gate on the full success of the integration workflow (CI), so broken code, failing tests, or open security vulnerabilities can never reach production.
 
+## Learner-First Roadmap Alignment (Restructured)
+
+This integration plan is mapped to **Phase 10 (production-readiness extras)** in the restructured roadmap.
+
+Reason: CI/CD deployment gating is most effective after core app flow, microservices, and platform layers are already established.
+
 ---
 
 ## Issues Integrated

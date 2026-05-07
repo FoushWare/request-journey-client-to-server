@@ -10,6 +10,13 @@
 
 This document details the integration of 1 new GitHub issue (#167) into the DevOps learning path. The issue covers deploying microservices to cloud infrastructure — comparing raw VM deployment (EC2 + Docker Compose) against managed Kubernetes (EKS/GKE/AKS), and explaining dedicated/sole-tenant hosting for compliance-sensitive workloads.
 
+## Learner-First Roadmap Alignment (Restructured)
+
+This integration plan is mapped to the restructured roadmap as follows:
+
+- **Phase 8**: Kubernetes platform adoption and cloud deployment strategy for microservices
+- **Phase 10**: Additional production deployment alternatives and tenancy trade-off guidance
+
 ---
 
 ## Issue Integrated

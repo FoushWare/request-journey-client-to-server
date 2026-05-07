@@ -42,6 +42,19 @@ This repository is a **complete, end-to-end DevOps learning curriculum** built a
 - Each phase adds a real production capability
 - By the end, the same app runs on Kubernetes, with Istio mTLS, Kafka event streaming, HashiCorp Vault secrets, Prometheus/Grafana observability, GitOps via Argo CD, and Terraform-provisioned infrastructure — all on EKS
 
+### Current Learner-First Execution Order
+
+1. App with mock server (no backend)
+2. App with backend fixed responses (no database)
+3. Backend with real database
+4. Containerization
+5. Microfrontend
+6. Microservice
+7. Microservice challenges
+8. Kubernetes
+9. Ansible
+10. Production-readiness extras
+
 ---
 
 ## The Notes App

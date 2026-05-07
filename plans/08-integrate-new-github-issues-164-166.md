@@ -10,6 +10,13 @@
 
 This document details the integration of 3 new GitHub issues (#164–#166) into the DevOps learning path. The issues extend two existing categories: **Microservices** (patterns and testing) and **Logging/Observability** (three pillars). Together they cover advanced distributed systems architecture patterns, a complete microservices testing strategy, and the full OpenTelemetry-based observability stack.
 
+## Learner-First Roadmap Alignment (Restructured)
+
+This integration plan is mapped to the restructured roadmap as follows:
+
+- **Phase 7**: Microservice challenges and advanced data/test patterns (#164, #165)
+- **Phase 10**: Production-readiness extras for observability (#166)
+
 ---
 
 ## Issues Integrated

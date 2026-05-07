@@ -129,30 +129,22 @@ All tasks use the Notes App as context — new concepts are applied TO the Notes
 
 ---
 
-## Learning Path Summary
+## Learning Path Summary (Restructured)
 
-| Phase | Topics | Issues |
-|-------|--------|--------|
-| 1 | Frontend + Backend + JWT | (foundation) |
-| 2 | Databases (PostgreSQL, MongoDB) | |
-| 3 | Docker + Containerization | #32–#40 |
-| 4 | Kubernetes | #41–#50, #132–#133, #137–#138 |
-| 5 | CI/CD (Jenkins + GitHub Actions) | #51–#60 |
-| 6 | Security | #61–#70, #155 |
-| 7 | Logging (ELK Stack) | #71–#80 |
-| 8 | NGINX | #81–#90 |
-| 9 | Ansible Automation | #91–#100 |
-| 10 | AWS | #101–#110, #145–#149 |
-| 11 | Integration | #111–#120 |
-| 12 | OSI Networking + gRPC | #121–#131 |
-| 13 | GitOps (Flux, ArgoCD) | #140–#142 |
-| 14 | Service Mesh (Istio) | #143 |
-| 15 | Microservices Architecture | #134–#136, #152 |
-| 16 | Helm | #139 |
-| 17 | HashiCorp (Consul, Nomad) | #144 |
-| 18 | **Distributed Systems (NEW)** | #150, #151, #158 |
-| 19 | **Kafka Messaging (NEW)** | #156, #157 |
-| 20 | **System Design at Scale (NEW)** | #153, #154 |
+| Priority Phase | Focus | Main Task Areas |
+|---|---|---|
+| 1 | App works with mock server (no backend) | App-first foundations |
+| 2 | App calls backend with fixed responses (no DB) | App-first foundations |
+| 3 | Backend connected to real database | App-first foundations |
+| 4 | Containerization | `tasks/docker/` |
+| 5 | Microfrontend | Frontend architecture track |
+| 6 | Microservice introduction | `tasks/microservices/` (core decomposition/migration tasks) |
+| 7 | Microservice challenges | `tasks/microservices/`, `tasks/messaging/`, `tasks/distributed-systems/`, `tasks/service-mesh/`, `tasks/logging/` |
+| 8 | Kubernetes platform | `tasks/kubernetes/`, `tasks/helm/`, `tasks/gitops/` |
+| 9 | Ansible automation | `tasks/ansible/` |
+| 10 | Production-readiness extras | `tasks/security/`, `tasks/aws/`, `tasks/nginx/`, `tasks/ci-cd/`, `tasks/integration/`, `tasks/networking/`, `tasks/hashicorp/`, `tasks/system-design/` |
+
+> Detailed task categories remain in their existing directories; this table defines the new execution priority for learners.
 
 ---
 

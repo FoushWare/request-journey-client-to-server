@@ -30,6 +30,8 @@ This roadmap is now prioritized so learners can see the app working early, then 
 
 Each priority phase can be broken into multiple detailed plans and task sets.
 
+> The detailed sections below are retained as topic tracks. Follow the priority order above when sequencing learner delivery.
+
 ### Phase 1: Docker Foundations (Issues #32-40)
 **Estimated Time**: 2-3 weeks  
 **Prerequisites**: Basic understanding of Linux, command line, and the Notes App codebase

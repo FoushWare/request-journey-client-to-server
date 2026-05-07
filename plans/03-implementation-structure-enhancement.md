@@ -6,6 +6,23 @@ This plan enhances the learning path structure to support:
 1. **Task-based implementation** with starter and final-solution directories (dependency chain)
 2. **Capsule projects** for independent, real-world practice
 
+## Learner-First Roadmap Alignment (Restructured)
+
+This plan is now explicitly aligned to the unified roadmap:
+
+1. Mock server app
+2. Backend fixed responses
+3. Real database integration
+4. Containerization
+5. Microfrontend
+6. Microservice
+7. Microservice challenges
+8. Kubernetes
+9. Ansible
+10. Production-readiness extras
+
+**Primary role of this plan:** provide shared implementation scaffolding (`starter/` and `final-solution/`) across all phases so learners can progress through the same ordered path consistently.
+
 ## Current State
 
 - Tasks exist in `tasks/{category}/task-XXX.md` with headers
@@ -229,7 +246,6 @@ Each capsule project README should include:
 - Hints should be progressive - start vague, get more specific
 - Solution walkthroughs should explain "why" not just "what"
 - **Critical**: Each task's starter is the final-solution of its prerequisite task(s)
-
 
 
 

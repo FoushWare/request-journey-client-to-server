@@ -21,6 +21,16 @@ The learning path is updated to prioritize seeing the app work end-to-end early,
 
 > Note: Each phase can be split into multiple detailed plan documents and task groups.
 
+### Legacy-to-Restructured Mapping
+
+When older sections reference legacy phase names, map them to the new order:
+
+- Docker/container topics → Priority Phase 4
+- Kubernetes/Helm/GitOps topics → Priority Phase 8
+- Ansible topics → Priority Phase 9
+- Microservices topics → Priority Phases 6-7
+- Security/CI-CD/AWS/Networking/Integration and advanced topics → Priority Phase 10
+
 ## Structure to Create
 
 ### 1. Main Directories

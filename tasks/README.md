@@ -2,6 +2,23 @@
 
 This directory contains detailed, step-by-step tasks for learning DevOps through the Notes App project. Tasks are organized by category and designed to take you from beginner to production-ready DevOps engineer.
 
+## Restructured Learning Priority
+
+Use this execution order across all task categories:
+
+1. App with mock server
+2. App with backend fixed responses
+3. Backend with real database
+4. Containerization
+5. Microfrontend
+6. Microservice
+7. Microservice challenges
+8. Kubernetes
+9. Ansible
+10. Production-readiness extras
+
+Most folders in this `tasks/` directory start from phase 4 onward.
+
 ## Directory Structure
 
 ```
@@ -67,7 +84,7 @@ Each task file follows a comprehensive structure:
 
 ### Task Categories
 
-#### Docker (Phase 1)
+#### Docker (Priority Phase 4)
 Foundation tasks covering containerization:
 - Creating Dockerfiles for frontend and backend
 - Docker Compose orchestration
@@ -76,7 +93,7 @@ Foundation tasks covering containerization:
 
 **Start Here**: `docker/task-001-create-notes-app-frontend-dockerfile.md`
 
-#### Kubernetes (Phase 2)
+#### Kubernetes (Priority Phase 8)
 Orchestration tasks for deploying to Kubernetes/OpenShift:
 - Deployments, Services, Ingress
 - ConfigMaps and Secrets
@@ -85,7 +102,7 @@ Orchestration tasks for deploying to Kubernetes/OpenShift:
 
 **Prerequisites**: Complete all Docker tasks
 
-#### CI/CD (Phase 3)
+#### CI/CD (Priority Phase 10)
 Automation tasks for build and deployment pipelines:
 - Jenkins setup and pipelines
 - GitHub Actions workflows
@@ -94,7 +111,7 @@ Automation tasks for build and deployment pipelines:
 
 **Prerequisites**: Complete Docker and Kubernetes tasks
 
-#### Security (Phase 5)
+#### Security (Priority Phase 10)
 Security hardening tasks:
 - JWT authentication
 - HTTPS/TLS configuration
@@ -103,7 +120,7 @@ Security hardening tasks:
 
 **Prerequisites**: Complete Docker tasks
 
-#### Logging (Phase 4)
+#### Logging (Priority Phase 10)
 Observability tasks:
 - ELK Stack setup
 - Log shippers (Filebeat, Fluent Bit)
@@ -112,7 +129,7 @@ Observability tasks:
 
 **Prerequisites**: Complete Docker tasks
 
-#### NGINX (Phase 6)
+#### NGINX (Priority Phase 10)
 Reverse proxy and load balancing tasks:
 - Server block configuration
 - Reverse proxy setup
@@ -121,7 +138,7 @@ Reverse proxy and load balancing tasks:
 
 **Prerequisites**: Complete Docker tasks
 
-#### Ansible (Phase 6)
+#### Ansible (Priority Phase 9)
 Infrastructure automation tasks:
 - Playbook creation
 - Server provisioning
@@ -130,7 +147,7 @@ Infrastructure automation tasks:
 
 **Prerequisites**: Complete Docker and basic infrastructure tasks
 
-#### AWS (Phase 7)
+#### AWS (Priority Phase 10)
 Cloud deployment tasks:
 - EC2, S3, RDS setup
 - ECS container deployment
@@ -139,7 +156,7 @@ Cloud deployment tasks:
 
 **Prerequisites**: Complete Docker and Kubernetes tasks
 
-#### Integration (Phase 8)
+#### Integration (Priority Phase 10)
 Final integration tasks:
 - Connecting all components
 - End-to-end testing
@@ -148,7 +165,7 @@ Final integration tasks:
 
 **Prerequisites**: Complete all previous phases
 
-#### Networking (Phase 9)
+#### Networking (Priority Phase 10)
 Advanced networking tasks:
 - OSI model layers
 - HTTP requests with CORS
@@ -156,7 +173,7 @@ Advanced networking tasks:
 
 **Prerequisites**: Complete Docker and Kubernetes tasks
 
-#### GitOps (Phase 10)
+#### GitOps (Priority Phase 10)
 GitOps continuous delivery tasks:
 - Flux CD setup and configuration
 - Argo CD setup and comparison
@@ -165,7 +182,7 @@ GitOps continuous delivery tasks:
 
 **Prerequisites**: Complete Kubernetes tasks, Helm recommended
 
-#### Service Mesh (Phase 11)
+#### Service Mesh (Priority Phase 10)
 Service mesh tasks:
 - Istio installation and configuration
 - Traffic management (canary, blue-green)
@@ -174,7 +191,7 @@ Service mesh tasks:
 
 **Prerequisites**: Complete Kubernetes tasks, Microservices recommended
 
-#### Microservices (Phase 12)
+#### Microservices (Priority Phases 6-7)
 Microservices architecture tasks:
 - Monolith to microservices refactoring
 - Database design for microservices
@@ -185,7 +202,7 @@ Microservices architecture tasks:
 
 **Prerequisites**: Complete Docker, Kubernetes, and networking tasks
 
-#### Helm (Phase 13)
+#### Helm (Priority Phase 8)
 Kubernetes package manager tasks:
 - Helm installation
 - Creating Helm charts
@@ -194,7 +211,7 @@ Kubernetes package manager tasks:
 
 **Prerequisites**: Complete Kubernetes basics
 
-#### HashiCorp (Phase 14)
+#### HashiCorp (Priority Phase 10)
 HashiCorp ecosystem expansion tasks:
 - Consul for service discovery
 - Consul for configuration management

@@ -10,6 +10,17 @@
 
 This document details the integration of 15 new GitHub issues (#133-146) into the DevOps learning path. These issues introduce advanced topics including GitOps, service mesh, microservices architecture, Helm, HashiCorp ecosystem expansion, and comprehensive AWS coverage.
 
+## Learner-First Roadmap Alignment (Restructured)
+
+This integration plan is mapped to the restructured roadmap as follows:
+
+- **Phase 6**: Microservices architecture foundations (#134–#136)
+- **Phase 7**: Microservice operational challenges (service mesh, resilience patterns)
+- **Phase 8**: Kubernetes expansion and Helm/GitOps integration (#132, #133, #138, #139, #140–#143)
+- **Phase 10**: Advanced production-readiness coverage (AWS expansion #145–#146, HashiCorp #144)
+
+The plan content remains completed, but its placement is now explicitly aligned to the learner-first sequence.
+
 ---
 
 ## Issues Integrated
@@ -274,4 +285,3 @@ The integration of issues #133-146 significantly expands the learning path with 
 **Document Status**: Complete  
 **Last Updated**: 2025-01-XX  
 **Next Review**: As needed based on learner feedback
-

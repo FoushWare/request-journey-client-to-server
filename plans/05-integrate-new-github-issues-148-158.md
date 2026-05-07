@@ -10,6 +10,15 @@
 
 This document details the integration of 11 new GitHub issues (#148–#158) into the DevOps learning path. These issues introduce advanced distributed systems topics, Kafka messaging patterns, a dedicated Email Service, system design at scale, and AWS LocalStack.
 
+## Learner-First Roadmap Alignment (Restructured)
+
+This integration plan is mapped to the restructured roadmap as follows:
+
+- **Phase 7**: Microservice challenges (email delivery, async messaging behavior, reliability)
+- **Phase 10**: Production-readiness extras (distributed systems, Kafka, system design at scale, LocalStack, advanced security mechanisms)
+
+This keeps advanced topics sequenced after the app-first and platform foundations.
+
 ---
 
 ## Issues Integrated

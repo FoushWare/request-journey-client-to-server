@@ -10,6 +10,15 @@
 
 This document details the integration of 3 new GitHub issues (#160–#162) into the DevOps learning path. All three issues extend the **Microservices** track and focus on foundational architectural patterns that real engineering teams apply: decomposition strategies, the monolith-first migration approach, and the sidecar pattern for cross-cutting concerns.
 
+## Learner-First Roadmap Alignment (Restructured)
+
+This integration plan is mapped to the restructured roadmap as follows:
+
+- **Phase 6**: Microservice design and decomposition (#160, #161)
+- **Phase 7**: Microservice operational patterns and sidecars (#162)
+
+This placement ensures microservice work happens only after the app is proven in mock/backend/database phases.
+
 ---
 
 ## Issues Integrated

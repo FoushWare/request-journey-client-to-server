@@ -26,6 +26,14 @@ This enhanced plan follows the same learner-first order:
 
 Terraform, Vault, GitOps, and other advanced infrastructure topics are expanded as sub-plans inside phases 8–10 where appropriate.
 
+### Legacy-to-Restructured Mapping
+
+If any later section uses legacy phase labels, interpret them with this mapping:
+
+- Infrastructure (Terraform/Vault/Kubernetes platform) → Priority Phases 8-10
+- Microservices architecture topics → Priority Phases 6-7
+- CI/CD, security, observability, cloud, integration, advanced topics → Priority Phase 10
+
 ## Enhancements Over Plan 1
 
 ### 1. Terraform Integration
@@ -456,7 +464,6 @@ docs: Update learning path with Terraform and Vault
 - GitHub integration enables collaboration and version control
 - All tasks maintain Notes App context
 - OpenShift support maintained where applicable
-
 
 
 
