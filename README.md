@@ -1136,10 +1136,10 @@ request-journey-client-to-server/
 │   ├── ISSUE_TRACKER.md         ← Master tracking spreadsheet
 │   ├── issue-032.md ... issue-168.md
 │
-└── plans/                       ← Session integration plans
-    ├── 01-integrate-new-github-issues.md
+└── plans/                       ← Phase and integration plans
+    ├── 01-roadmap-standardization.md
     ├── ...
-    └── 09-integrate-new-github-issues-167.md
+    └── 19-phase-10-production-extras.md
 ```
 
 ---
@@ -1166,8 +1166,8 @@ cd request-journey-client-to-server
 # 2. Browse the tasks
 ls tasks/
 
-# 3. Start with Docker (recommended first phase)
-cat tasks/docker/task-001-create-notes-app-frontend-dockerfile.md
+# 3. Start with app foundation phase 1 (recommended first phase)
+cat tasks/app-foundation/task-001-run-notes-app-with-mock-server.md
 
 # 4. For local cloud dev (AWS services without real AWS)
 docker-compose up localstack

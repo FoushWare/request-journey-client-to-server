@@ -19,3 +19,8 @@ All plans are now standardized around the learner-first 10-phase model.
 
 - `01`-`09`: restructured legacy/integration plans mapped to the canonical sequence
 - `10`-`19`: dedicated phase plans (one per canonical phase)
+
+## Naming Convention
+
+- `01`-`09`: descriptive cross-cutting roadmap/integration filenames
+- `10`-`19`: `phase-XX-<name>.md` canonical phase plan filenames
