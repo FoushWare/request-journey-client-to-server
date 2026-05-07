@@ -3,6 +3,11 @@
 > This diagram shows how ALL the major systems in this project connect together.  
 > Every box represents a topic/phase you will learn hands-on through the tasks.
 
+## Learner-First Reading Order
+
+Read and execute this system map using the canonical sequence:
+1) mock server, 2) fixed backend responses, 3) real database, 4) containerization, 5) microfrontend, 6) microservices, 7) microservice challenges, 8) kubernetes, 9) ansible, 10) production extras.
+
 ---
 
 ## Full System Map
