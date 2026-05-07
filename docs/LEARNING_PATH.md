@@ -13,6 +13,23 @@ The Notes App is a simple but complete application:
 
 ## Learning Phases
 
+### Current Priority Phase Order
+
+This roadmap is now prioritized so learners can see the app working early, then evolve it step by step:
+
+1. Run app with mock server (no backend).
+2. Connect app to backend with fixed responses (no database).
+3. Connect backend to real database.
+4. Add containerization.
+5. Introduce microfrontend.
+6. Introduce microservice.
+7. Handle common microservice challenges.
+8. Move to Kubernetes.
+9. Add Ansible automation.
+10. Add remaining production capabilities required for a fully functional app.
+
+Each priority phase can be broken into multiple detailed plans and task sets.
+
 ### Phase 1: Docker Foundations (Issues #32-40)
 **Estimated Time**: 2-3 weeks  
 **Prerequisites**: Basic understanding of Linux, command line, and the Notes App codebase

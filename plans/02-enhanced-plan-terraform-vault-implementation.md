@@ -9,6 +9,23 @@ This is an enhanced version of Plan 1, adding:
 - **Complete task creation** for all phases
 - **GitHub integration** for version control and collaboration
 
+## Revised Phase Order (Aligned with Plan 1)
+
+This enhanced plan follows the same learner-first order:
+
+1. App works with mock server (no backend dependency).
+2. App calls backend with fixed responses (no database dependency).
+3. Backend uses real database.
+4. Containerization.
+5. Microfrontend.
+6. Microservice.
+7. Microservice common challenges.
+8. Kubernetes.
+9. Ansible.
+10. Additional production-readiness capabilities.
+
+Terraform, Vault, GitOps, and other advanced infrastructure topics are expanded as sub-plans inside phases 8–10 where appropriate.
+
 ## Enhancements Over Plan 1
 
 ### 1. Terraform Integration
@@ -439,7 +456,6 @@ docs: Update learning path with Terraform and Vault
 - GitHub integration enables collaboration and version control
 - All tasks maintain Notes App context
 - OpenShift support maintained where applicable
-
 
 
 

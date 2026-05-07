@@ -4,6 +4,23 @@
 
 Create a mentorship-focused DevOps learning structure for the **Notes App** project. Break down 100 GitHub issues into detailed, step-by-step tasks organized by category. All tasks are contextualized specifically for the Notes App (user authentication, create/view notes functionality). The structure supports progressive learning from Docker basics through advanced cloud and automation topics, building a complete production-ready Notes App deployment.
 
+## Revised Phase Order (Learner-First)
+
+The learning path is updated to prioritize seeing the app work end-to-end early, then layering infrastructure:
+
+1. Make the app work **without backend** using a mock server.
+2. Connect app to backend **without database** using fixed backend responses.
+3. Connect backend to a **real database**.
+4. Add **containerization**.
+5. Introduce **microfrontend** architecture.
+6. Introduce **microservice** architecture.
+7. Solve common **microservice challenges** (resilience, communication, observability, data consistency).
+8. Move to **Kubernetes** orchestration.
+9. Add **Ansible** automation.
+10. Add other production capabilities needed to make the app fully functional.
+
+> Note: Each phase can be split into multiple detailed plan documents and task groups.
+
 ## Structure to Create
 
 ### 1. Main Directories
